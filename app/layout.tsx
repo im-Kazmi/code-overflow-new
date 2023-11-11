@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import ThemeProvider from "@/contexts/ThemeContext";
 import React from "react";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   description:
     "A community driven platform for asking and answering programming questions",
   icons: {
-    icon: "/assets/images/site-logo.png",
+    icon: "/assets/images/site-logo.svg",
   },
 };
 
@@ -26,7 +27,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={inter.className}>
+          <ThemeProvider>{children}</ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
