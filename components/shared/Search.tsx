@@ -3,8 +3,8 @@ import { FiSearch } from "react-icons/fi";
 const Search = ({ placeholder }: { placeholder: string }) => {
   return (
     <div
-      className={` w-full h-14 bg-black/40 flex gap-1 rounded-lg max-sm:hidden ${
-        placeholder == "Search Globally" ? " max-w-[600px]" : ""
+      className={` w-full h-14 bg-black/40 flex gap-1 rounded-lg  ${
+        placeholder == "Search Globally" ? " max-w-[600px] max-sm:hidden" : ""
       }`}
     >
       <span className=" my-auto px-3 text-white">
