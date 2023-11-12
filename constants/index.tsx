@@ -100,3 +100,10 @@ export const popularTags = [
     textColor: "text-pink-300",
   },
 ];
+
+export const filters = [
+  { id: 1, name: "Newest", value: "newest" },
+  { id: 2, name: "Recommended", value: "recommended" },
+  { id: 3, name: "Frequent", value: "frequent" },
+  { id: 4, name: "UnAnswered", value: "unanswered" },
+];

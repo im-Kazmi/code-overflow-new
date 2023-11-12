@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiSolidChevronRight } from "react-icons/bi";
 import React from "react";
+import RenderTag from "./RenderTag";
 
 const RightSidebar = () => {
   const pathname = usePathname();
@@ -32,17 +33,14 @@ const RightSidebar = () => {
           <h1 className=" font-bold text-white">Popular Tags</h1>
           <div className=" flex flex-col gap-1 mt-5">
             {popularTags.map((tag) => (
-              <div
-                id={tag._id}
-                className=" flex justify-between cursor-pointer"
-              >
-                <p
-                  className={` w-fit px-2 py-2 ${tag.textColor}  bg-black/40 rounded-xl `}
-                >
-                  {tag.name}
-                </p>
-                <span className=" text-white">{tag.totalQuestions}</span>
-              </div>
+              <RenderTag
+                key={tag._id}
+                _id={tag._id}
+                name={tag.name}
+                totalQuestions={tag.totalQuestions}
+                showCount
+                textColor={tag.textColor}
+              />
             ))}
           </div>
         </div>

@@ -13,7 +13,7 @@ import {
 
 const MobileNav = () => {
   return (
-    <div className=" w-full flex justify-between md:hidden">
+    <div className=" w-full flex justify-between hidden max-sm:flex">
       <Sheet>
         <SheetTrigger>
           <Image
@@ -39,10 +39,10 @@ const MobileNav = () => {
               </p>
             </Link>
           </SheetHeader>
-          <SheetDescription className=" flex flex-col justify-around">
+          <SheetDescription className=" flex flex-col justify-around bg-transparent">
             <div className=" flex flex-col gap-3 mt-10">
               {links.map((link, index) => (
-                <div className=" flex py-3 w-full px-2 rounded-xl gap-5  items-center bg-gradient-to-r from-orange-600 to-orange-500 to-orange-400  to-white/80">
+                <div className=" flex py-3 w-full px-2 rounded-xl gap-5  items-center bg-gradient-to-r from-orange-500 to-orange-200 ">
                   <span className=" text-xl text-white">{link.Icon}</span>
                   <span className=" text-white">{link.label}</span>
                 </div>
