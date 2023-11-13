@@ -33,7 +33,7 @@ const QuestionCard = ({
   createdAt,
 }: QuestionProps) => {
   return (
-    <div className=" w-full p-5 bg-black/40 rounded-lg flex flex-col">
+    <div className=" cursor-pointer w-full p-5 bg-black/40 rounded-lg flex flex-col">
       <div className=" w-full flex-col">
         <span className="hidden max-sm:flex text-sm">2 days ago</span>
         <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>

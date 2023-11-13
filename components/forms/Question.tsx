@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const Question = () => {
   const editorRef = useRef(null);
@@ -31,7 +32,11 @@ const Question = () => {
 
   const { isSubmitting, isLoading, isDirty } = form.formState;
 
-  function onSubmit(values: z.infer<typeof questionSchema>) {}
+  async function onSubmit(values: z.infer<typeof questionSchema>) {
+    try {
+      await createQuestion({});
+    } catch (error) {}
+  }
 
   const handleTagDelete = (selectedTag: any) => {
     const tags = form.getValues("tags").filter((tag) => tag !== selectedTag);
@@ -106,6 +111,8 @@ const Question = () => {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 500,
