@@ -70,31 +70,31 @@ export const hotQuestions = [
 
 export const popularTags = [
   {
-    _id: 1,
+    _id: "1",
     name: "Next",
     totalQuestions: 15,
     textColor: "text-cyan-300",
   },
   {
-    _id: 2,
+    _id: "2",
     totalQuestions: 12,
     name: "Node",
     textColor: "text-orange-300",
   },
   {
-    _id: 3,
+    _id: "3",
     totalQuestions: 10,
     name: "React",
     textColor: "text-green-300",
   },
   {
-    _id: 4,
+    _id: "4",
     name: "Javascript",
     totalQuestions: 8,
     textColor: "text-rose-300",
   },
   {
-    _id: 5,
+    _id: "5",
     name: "Redux",
     totalQuestions: 1,
     textColor: "text-pink-300",

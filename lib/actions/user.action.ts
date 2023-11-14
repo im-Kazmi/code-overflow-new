@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
+import Question from "../database/question.model";
 
 export async function getUserById(params: any) {
   await connectToDatabase();
@@ -44,6 +45,20 @@ export async function deleteUser(params: any) {
   await connectToDatabase();
   try {
     const { clerkId } = params;
+    const user = await User.findOne({ clerkId });
+
+    if (!user) {
+      throw new Error("user not found");
+    }
+
+    const userQuestionsIds = await Question.find({ author: user._id }).distinct(
+      "_id"
+    );
+
+    await Question.deleteMany({ author: user._id });
+
+    // TODO: Delete user answers,comments,etc
+
     await User.findByIdAndDelete({ clerkId });
   } catch (error: any) {
     console.log(error.message);

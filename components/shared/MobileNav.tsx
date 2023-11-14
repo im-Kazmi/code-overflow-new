@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/classnames-order */
+/* eslint-disable tailwindcss/no-contradicting-classname */
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -13,6 +15,7 @@ import {
 
 const MobileNav = () => {
   return (
+    // eslint-disable-next-line tailwindcss/classnames-order
     <div className=" w-full flex justify-between hidden max-sm:flex">
       <Sheet>
         <SheetTrigger>
@@ -42,7 +45,10 @@ const MobileNav = () => {
           <SheetDescription className=" flex flex-col justify-around bg-transparent">
             <div className=" flex flex-col gap-3 mt-10">
               {links.map((link, index) => (
-                <div className=" flex py-3 w-full px-2 rounded-xl gap-5  items-center bg-gradient-to-r from-orange-500 to-orange-200 ">
+                <div
+                  key={link.name}
+                  className=" flex py-3 w-full px-2 rounded-xl gap-5  items-center bg-gradient-to-r from-orange-500 to-orange-200 "
+                >
                   <span className=" text-xl text-white">{link.Icon}</span>
                   <span className=" text-white">{link.label}</span>
                 </div>

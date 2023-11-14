@@ -1,12 +1,13 @@
+/* eslint-disable tailwindcss/classnames-order */
 import Link from "next/link";
 import React from "react";
 
 interface Props {
-  _id: number;
-  name: string;
-  totalQuestions: number;
-  showCount: boolean;
-  textColor: string;
+  _id: string;
+  name?: string;
+  totalQuestions?: number;
+  showCount?: boolean;
+  textColor?: string;
 }
 const RenderTag = ({
   _id,

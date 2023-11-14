@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 "use client";
 import * as React from "react";
 
@@ -16,7 +17,7 @@ const Filter = () => {
   return (
     <div className=" hidden max-sm:flex sm:w-full">
       <Select>
-        <SelectTrigger className="w-[180px] w-full text-white border-none shadow-lg my-auto bg-black/40 outline-none h-14 focus:border-none">
+        <SelectTrigger className="w-[180px]  text-white border-none shadow-lg my-auto bg-black/40 outline-none h-14 focus:border-none">
           <SelectValue placeholder="Select a Filter" className="" />
         </SelectTrigger>
         <SelectContent className="bg-black/80 opacity-100 text-white outline-none border-none">

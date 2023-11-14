@@ -1,6 +1,6 @@
+/* eslint-disable tailwindcss/classnames-order */
 import React from "react";
 import RenderTag from "../shared/RenderTag";
-import Image from "next/image";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import moment from "moment";

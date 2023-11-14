@@ -1,3 +1,5 @@
+/* eslint-disable tailwindcss/classnames-order */
+/* eslint-disable no-unused-vars */
 "use client";
 import { hotQuestions, links, popularTags } from "@/constants";
 import Link from "next/link";
@@ -18,6 +20,7 @@ const RightSidebar = () => {
             {hotQuestions.map((question) => (
               <Link
                 href={"/"}
+                key={question.id}
                 className="flex cursor-pointer items-center
              justify-between gap-7 px-2 py-1 rounded-lg hover:bg-black/50"
               >

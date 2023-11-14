@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 import Search from "@/components/shared/Search";
 import Filter from "@/components/shared/Filter";
 import HomeFilter from "@/components/home/HomeFilter";

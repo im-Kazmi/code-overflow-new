@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable tailwindcss/classnames-order */
 "use client";
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";

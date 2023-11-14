@@ -1,3 +1,4 @@
+/* eslint-disable tailwindcss/classnames-order */
 import { filters } from "@/constants";
 import React from "react";
 
