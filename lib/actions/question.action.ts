@@ -22,7 +22,7 @@ export async function createQuestion(params: createQuestionParams) {
       author,
     });
 
-    for (const tag of tags) {
+    for (const tag of tags!) {
       const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
         { $setOnInsert: { name: tag }, $push: { questions: question._id } },
@@ -50,7 +50,7 @@ export async function getQuestions(params: createQuestionParams) {
     const questions = await Question.find()
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tag });
-    return { questions };
+    return questions;
   } catch (error) {
     console.log(error);
   }
