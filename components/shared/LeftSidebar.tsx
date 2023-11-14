@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 "use client";
 import { links } from "@/constants";
 import Link from "next/link";

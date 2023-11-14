@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import React from "react";
 import { FiSearch } from "react-icons/fi";
 const Search = ({ placeholder }: { placeholder: string }) => {

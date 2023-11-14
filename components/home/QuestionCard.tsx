@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import React from "react";
 import RenderTag from "../shared/RenderTag";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";

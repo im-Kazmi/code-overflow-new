@@ -1,5 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
-/* eslint-disable tailwindcss/no-contradicting-classname */
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -15,8 +13,7 @@ import {
 
 const MobileNav = () => {
   return (
-    // eslint-disable-next-line tailwindcss/classnames-order
-    <div className=" w-full flex justify-between hidden max-sm:flex">
+    <div className=" w-full  justify-between hidden max-sm:flex">
       <Sheet>
         <SheetTrigger>
           <Image

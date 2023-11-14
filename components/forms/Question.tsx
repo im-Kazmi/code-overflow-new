@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable tailwindcss/classnames-order */
 "use client";
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
-import { FieldElement, FieldName, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { questionSchema } from "@/lib/validations";
 import { z } from "zod";

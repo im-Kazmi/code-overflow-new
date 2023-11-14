@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 /* eslint-disable no-unused-vars */
 "use client";
 import { hotQuestions, links, popularTags } from "@/constants";
