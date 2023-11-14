@@ -17,9 +17,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createQuestion } from "@/lib/actions/question.action";
+import { json } from "stream/consumers";
 
-const Question = () => {
+import { usePathname, useRouter } from "next/navigation";
+const Question = ({ mongoUserId }: { mongoUserId: string }) => {
   const editorRef = useRef(null);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof questionSchema>>({
     resolver: zodResolver(questionSchema),
@@ -34,7 +38,15 @@ const Question = () => {
 
   async function onSubmit(values: z.infer<typeof questionSchema>) {
     try {
-      await createQuestion({});
+      const q = await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+
+      console.log(values.tags);
+      router.push("/");
     } catch (error) {}
   }
 

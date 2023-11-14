@@ -108,7 +108,7 @@ export default function Home() {
             Ask a Question
           </Link>
         </div>
-        <div className="flex w-full mt-5 gap-3">
+        <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
           <Search placeholder="Search Questions" />
           <Filter />
         </div>

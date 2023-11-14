@@ -24,7 +24,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   // }, [mode]);
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode, handleThemeChange }}>
+    <ThemeContext.Provider value={{ mode, handleThemeChange }}>
       {children}
     </ThemeContext.Provider>
   );
