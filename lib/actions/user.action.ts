@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { revalidatePath } from "next/cache";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
@@ -31,7 +32,7 @@ export async function updateUser(params: any) {
   await connectToDatabase();
   try {
     const { clerkId, updateData, path } = params;
-    const newUser = await User.findOneAndUpdate({ clerkId }, updateData, {
+    await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
 

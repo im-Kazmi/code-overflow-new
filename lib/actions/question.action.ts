@@ -4,7 +4,6 @@
 import { revalidatePath } from "next/cache";
 import Question, { IQuestion } from "../database/question.model";
 import Tag from "../database/tag.model";
-import Tags from "../database/tag.model";
 import User from "../database/user.model";
 
 import { connectToDatabase } from "../mongoose";
@@ -24,7 +23,7 @@ export async function createQuestion(params: createQuestionParams) {
     });
 
     for (const tag of tags) {
-      const existingTag = await Tags.findOneAndUpdate(
+      const existingTag = await Tag.findOneAndUpdate(
         { name: { $regex: new RegExp(`^${tag}$`, "i") } },
         { $setOnInsert: { name: tag }, $push: { questions: question._id } },
         { upsert: true, new: true }
@@ -39,7 +38,7 @@ export async function createQuestion(params: createQuestionParams) {
       $push: { tags: { $each: tagDocuments } },
     });
 
-    revalidatePath(path);
+    revalidatePath("/");
   } catch (error: any) {
     console.log(error.message);
   }
