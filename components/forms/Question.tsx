@@ -38,11 +38,12 @@ const Question = ({ mongoUserId }: { mongoUserId: string }) => {
 
   async function onSubmit(values: z.infer<typeof questionSchema>) {
     try {
-      const q = await createQuestion({
+      await createQuestion({
         title: values.title,
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(mongoUserId),
+        path: "/",
       });
 
       console.log(values.tags);

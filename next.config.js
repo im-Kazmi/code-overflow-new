@@ -2,7 +2,7 @@
 const nextConfig = {
   experimental: {
     mdxRs: true,
-    serverComponentsExternalPackages: ["mongoose"],
+    serverComponentsExternalPackages: ["mongoose", "i.pinimg.com"],
   },
 };
 

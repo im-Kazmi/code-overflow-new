@@ -1,12 +1,16 @@
 /* eslint-disable no-unused-vars */
 "use server";
 
+import { revalidatePath } from "next/cache";
 import Question, { IQuestion } from "../database/question.model";
+import Tag from "../database/tag.model";
 import Tags from "../database/tag.model";
+import User from "../database/user.model";
 
 import { connectToDatabase } from "../mongoose";
+import { createQuestionParams, getQuestionsParams } from "./shared.types";
 
-export async function createQuestion(params: any) {
+export async function createQuestion(params: createQuestionParams) {
   try {
     await connectToDatabase();
     const { title, content, tags, author, path } = params;
@@ -34,8 +38,21 @@ export async function createQuestion(params: any) {
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
     });
-    console.log("question created succesfully");
+
+    revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
+  }
+}
+
+export async function getQuestions(params: createQuestionParams) {
+  await connectToDatabase();
+  try {
+    const questions = await Question.find()
+      .populate({ path: "author", model: User })
+      .populate({ path: "tags", model: Tag });
+    return { questions };
+  } catch (error) {
+    console.log(error);
   }
 }
