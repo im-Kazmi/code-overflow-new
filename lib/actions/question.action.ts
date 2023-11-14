@@ -41,6 +41,7 @@ export async function createQuestion(params: createQuestionParams) {
     revalidatePath("/");
   } catch (error: any) {
     console.log(error.message);
+    throw error;
   }
 }
 
@@ -53,5 +54,6 @@ export async function getQuestions(params: createQuestionParams) {
     return questions;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }

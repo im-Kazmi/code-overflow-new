@@ -9,7 +9,7 @@ import User from "@/lib/database/user.model";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
-  const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
@@ -58,7 +58,7 @@ export async function POST(req: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const { username, email_addresses, image_url, first_name, last_name } =
+    const { id, username, email_addresses, image_url, first_name, last_name } =
       evt.data;
     const mongoUser = await createUser({
       clerkId: id,
@@ -67,6 +67,7 @@ export async function POST(req: Request) {
       picture: image_url,
     });
 
+    console.log(mongoUser);
     return NextResponse.json({ message: "OK", user: mongoUser });
   }
 
@@ -89,5 +90,5 @@ export async function POST(req: Request) {
     const deletedUser = await deleteUser({ clerkId: id });
     return NextResponse.json({ message: "OK", user: deleteUser });
   }
-  return new Response("", { status: 200 });
+  return new Response("Unhandled Event Type", { status: 200 });
 }
