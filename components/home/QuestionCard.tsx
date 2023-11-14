@@ -3,6 +3,7 @@ import RenderTag from "../shared/RenderTag";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import moment from "moment";
+import Image from "next/image";
 
 interface QuestionProps {
   _id: string;
@@ -43,13 +44,13 @@ const QuestionCard = ({
         </div>
         <div className=" flex w-full px-3 mt-3 justify-between max-sm:flex-col ">
           <div className=" flex gap-2">
-            {/* <Image
+            <Image
               src={author.picture}
               width={30}
               height={30}
               alt={author.name}
               className=" rounded-full"
-            /> */}
+            />
             <h1 className="">{author.name}</h1>
             <span>{moment(createdAt).fromNow()}</span>
           </div>
