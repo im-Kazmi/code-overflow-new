@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+"use server";
+
 import { revalidatePath } from "next/cache";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";

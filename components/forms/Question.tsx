@@ -23,7 +23,6 @@ import { usePathname, useRouter } from "next/navigation";
 const Question = ({ mongoUserId }: { mongoUserId: string }) => {
   const editorRef = useRef(null);
   const router = useRouter();
-  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof questionSchema>>({
     resolver: zodResolver(questionSchema),

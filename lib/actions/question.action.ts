@@ -12,6 +12,7 @@ import {
   getQuestionByIdParams,
   getQuestionsParams,
 } from "./shared.types";
+import Answer from "../database/answer.model";
 
 export async function createQuestion(params: createQuestionParams) {
   try {
@@ -75,8 +76,8 @@ export async function getQuestionById(params: getQuestionByIdParams) {
         path: "tags",
         model: Tag,
         select: "_id  name",
-      });
-    // .populate({ path: "answers", model: Tag });
+      })
+      .populate({ path: "answers", model: Answer });
     return question;
   } catch (error) {
     console.log(error);

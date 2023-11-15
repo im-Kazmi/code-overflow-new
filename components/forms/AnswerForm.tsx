@@ -1,7 +1,5 @@
 "use client";
 import React, { useRef } from "react";
-import Filter from "../shared/Filter";
-import { userFilters } from "@/constants";
 import { BsStars } from "react-icons/bs";
 import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
@@ -18,11 +16,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { answerSchema } from "@/lib/validations";
+import { createAnswer } from "@/lib/actions/answer.action";
 import { Button } from "../ui/button";
 interface Props {
   answersCount: number;
+  questionId: string;
+  userId: string;
 }
-const Answer = ({ answersCount }: Props) => {
+const AnswerForm = ({ answersCount, questionId, userId }: Props) => {
   const editorRef = useRef(null);
 
   const form = useForm<z.infer<typeof answerSchema>>({
@@ -36,17 +37,22 @@ const Answer = ({ answersCount }: Props) => {
 
   async function onSubmit(values: z.infer<typeof answerSchema>) {
     try {
-      console.log("first");
-    } catch (error) {}
+      await createAnswer({
+        author: userId,
+        content: values.answer,
+        question: questionId,
+      });
+      form.reset();
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div className=" w-full flex flex-col">
-      <div className=" flex justify-between ">
-        <span className=" text-orange-400 my-auto font-bold">
-          {answersCount} Answers
-        </span>
-        <Filter filters={userFilters} />
-      </div>
       <div className=" flex justify-between mt-5 ">
         <span className=" text-orange-400 my-auto font-bold">
           Write your Answer
@@ -81,8 +87,7 @@ const Answer = ({ answersCount }: Props) => {
                         editorRef.current = editor;
                       }}
                       onBlur={field.onBlur}
-                      onEditorChange={(content) => field.onChange(content)}
-                      initialValue=""
+                      onEditorChange={(answer) => field.onChange(answer)}
                       init={{
                         height: 500,
                         menubar: false,
@@ -127,7 +132,6 @@ const Answer = ({ answersCount }: Props) => {
                 </FormItem>
               )}
             />
-
             <Button
               type="submit"
               className=" bg-gradient-to-r from-orange-500 to-orange-200"
@@ -141,4 +145,4 @@ const Answer = ({ answersCount }: Props) => {
   );
 };
 
-export default Answer;
+export default AnswerForm;
