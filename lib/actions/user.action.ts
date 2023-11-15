@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
 import Question from "../database/question.model";
+import { getAllUsersParams } from "./shared.types";
 
 export async function getUserById(params: any) {
   await connectToDatabase();
@@ -69,10 +70,11 @@ export async function deleteUser(params: any) {
   }
 }
 
-export async function getUsers() {
+export async function getUsers(params: getAllUsersParams) {
   await connectToDatabase();
   try {
-    const users = await User.find({});
+    // const { page = 1, pageSize = 20 } = params;
+    const users = await User.find({}).sort({ createdAt: -1 });
 
     return users;
   } catch (error: any) {

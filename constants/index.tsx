@@ -102,8 +102,14 @@ export const popularTags = [
 ];
 
 export const filters = [
-  { id: 1, name: "Newest", value: "newest" },
-  { id: 2, name: "Recommended", value: "recommended" },
-  { id: 3, name: "Frequent", value: "frequent" },
-  { id: 4, name: "UnAnswered", value: "unanswered" },
+  { id: "1", name: "Newest", value: "newest" },
+  { id: "2", name: "Recommended", value: "recommended" },
+  { id: "3", name: "Frequent", value: "frequent" },
+  { id: "4", name: "UnAnswered", value: "unanswered" },
+];
+
+export const userFilters = [
+  { id: "1", name: "New Users", value: "new users" },
+  { id: "2", name: "Old Users", value: "old users" },
+  { id: "3", name: "Top contributors", value: "top contributors" },
 ];

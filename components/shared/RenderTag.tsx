@@ -7,6 +7,7 @@ interface Props {
   totalQuestions?: number;
   showCount?: boolean;
   textColor?: string;
+  className?: string;
 }
 const RenderTag = ({
   _id,
@@ -14,6 +15,7 @@ const RenderTag = ({
   totalQuestions,
   showCount,
   textColor,
+  className,
 }: Props) => {
   return (
     <Link
@@ -22,7 +24,7 @@ const RenderTag = ({
       className=" flex justify-between cursor-pointer"
     >
       <p
-        className={` w-fit px-2 py-2 ${textColor} text-white  bg-black/40 rounded-xl `}
+        className={` w-fit px-2 py-2 ${textColor} ${className} text-white  bg-black/40 rounded-xl `}
       >
         {name}
       </p>

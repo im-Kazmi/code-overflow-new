@@ -1,9 +1,27 @@
+import { getUserTopInteractedTags } from "@/lib/actions/tag.actions";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import RenderTag from "../shared/RenderTag";
 
-const UserCard = ({ user }: any) => {
+interface Props {
+  user: {
+    _id: string;
+    clerkId: string;
+    picture: string;
+    name: string;
+    username: string;
+  };
+}
+const UserCard = ({ user }: Props) => {
+  // const interactedTags = getUserTopInteractedTags({ userId: user._id });
+  const interactedTags = [
+    { _id: "1", name: "React" },
+    { _id: "2", name: "Next.js" },
+  ];
   return (
-    <div
+    <Link
+      href={`profile/${user?.clerkId}`}
       key={user?._id}
       className=" w-fit p-5 bg-black/40 flex flex-col gap-2 rounded-lg"
     >
@@ -22,8 +40,22 @@ const UserCard = ({ user }: any) => {
         <span className=" text-sm mx-auto text-neutral-500">
           @{user?.username}
         </span>
+        {interactedTags.length > 0 ? (
+          <div className=" flex gap-2 mt-2">
+            {interactedTags.map((tag) => (
+              <RenderTag
+                key={tag._id}
+                _id={tag._id}
+                name={tag.name}
+                className=" py-1 px-3"
+              />
+            ))}
+          </div>
+        ) : (
+          <div className=" text-sm">No Tag</div>
+        )}
       </div>
-    </div>
+    </Link>
   );
 };
 

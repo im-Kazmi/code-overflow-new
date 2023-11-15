@@ -10,9 +10,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { filters } from "@/constants";
 
-const Filter = () => {
+interface FilterProps {
+  filters: {
+    id: string;
+    name: string;
+    value: string;
+  }[];
+}
+
+const Filter = ({ filters }: FilterProps) => {
   return (
     <div className=" max-sm:flex max-sm:w-full">
       <Select>

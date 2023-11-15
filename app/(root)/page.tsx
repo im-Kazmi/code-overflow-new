@@ -5,6 +5,7 @@ import Link from "next/link";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/home/QuestionCard";
 import { getQuestions } from "@/lib/actions/question.action";
+import { filters } from "@/constants";
 
 export default async function Home() {
   const questions = await getQuestions({});
@@ -24,7 +25,7 @@ export default async function Home() {
         </div>
         <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
           <Search placeholder="Search Questions" />
-          <Filter />
+          <Filter filters={filters} />
         </div>
         <HomeFilter />
 
@@ -44,7 +45,11 @@ export default async function Home() {
               />
             ))
           ) : (
-            <NoResult />
+            <NoResult
+              title={"No question to Show"}
+              ButtonText="Ask a Question"
+              link="/ask-question"
+            />
           )}
         </div>
       </div>
