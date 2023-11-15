@@ -2,7 +2,7 @@ import { filters } from "@/constants";
 import React from "react";
 
 const HomeFilter = () => {
-  const isActive = 1;
+  const isActive = "1";
   return (
     <div className=" flex mt-5 w-full gap-5 max-sm:hidden">
       {filters.map((filter) => (
