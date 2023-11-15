@@ -22,3 +22,7 @@ export interface getAllUsersParams {
   filter?: string;
   searchQuery?: string;
 }
+
+export interface getQuestionByIdParams {
+  id: string;
+}
