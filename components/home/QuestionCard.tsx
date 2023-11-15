@@ -4,6 +4,7 @@ import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 
 interface QuestionProps {
   _id: string;
@@ -33,7 +34,10 @@ const QuestionCard = ({
   createdAt,
 }: QuestionProps) => {
   return (
-    <div className=" cursor-pointer w-full p-5 bg-black/40 rounded-lg flex flex-col">
+    <Link
+      href={`/question/${_id}`}
+      className=" cursor-pointer w-full p-5 bg-black/40 rounded-lg flex flex-col"
+    >
       <div className=" w-full flex-col">
         <span className="hidden max-sm:flex text-sm">2 days ago</span>
         <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>
@@ -67,7 +71,7 @@ const QuestionCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
