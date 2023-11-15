@@ -70,7 +70,8 @@ export async function deleteUser(params: any) {
   }
 }
 
-export async function getUsers(params: getAllUsersParams) {
+// export async function getUsers(params: getAllUsersParams) {
+export async function getUsers() {
   await connectToDatabase();
   try {
     // const { page = 1, pageSize = 20 } = params;
