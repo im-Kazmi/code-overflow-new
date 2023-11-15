@@ -25,6 +25,7 @@ export async function createUser(params: any) {
     return newUser;
   } catch (error: any) {
     console.log(error.message);
+    throw error;
   }
 }
 
@@ -39,6 +40,7 @@ export async function updateUser(params: any) {
     revalidatePath(path);
   } catch (error: any) {
     console.log(error.message);
+    throw error;
   }
 }
 
@@ -63,5 +65,18 @@ export async function deleteUser(params: any) {
     await User.findByIdAndDelete({ clerkId });
   } catch (error: any) {
     console.log(error.message);
+    throw error;
+  }
+}
+
+export async function getUsers() {
+  await connectToDatabase();
+  try {
+    const users = await User.find({});
+
+    return users;
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
   }
 }

@@ -14,7 +14,7 @@ import { filters } from "@/constants";
 
 const Filter = () => {
   return (
-    <div className=" hidden max-sm:flex sm:w-full">
+    <div className=" max-sm:flex max-sm:w-full">
       <Select>
         <SelectTrigger className="w-[180px]  text-white border-none shadow-lg my-auto bg-black/40 outline-none h-14 focus:border-none">
           <SelectValue placeholder="Select a Filter" className="" />

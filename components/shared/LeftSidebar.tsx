@@ -25,13 +25,21 @@ const LeftSidebar = () => {
           </Link>
         ))}
       </div>
-      <div className=" flex flex-col px-5">
-        <button className="flex p-2 cursor-pointer bg-white max-md:w-fit hover:bg-black/40 w-44  rounded-xl gap-5  items-center ">
+      <div className=" flex flex-col px-5 gap-2 py-2">
+        <Link
+          href={"/sign-in"}
+          className="flex p-2 cursor-pointer  max-md:w-fit bg-black/40 w-44  rounded-md
+           gap-5  items-center text-white "
+        >
           Sign In
-        </button>
-        <button className="flex p-2 cursor-pointer bg-white max-md:w-fit hover:bg-black/40 w-44 rounded-xl gap-5  items-center ">
+        </Link>
+        <Link
+          href={"/sign-up"}
+          className="flex p-2 cursor-pointer  max-md:w-fit bg-black/40 w-44 rounded-md
+           gap-5  items-center text-white "
+        >
           Sign Up
-        </button>
+        </Link>
       </div>
     </div>
   );
