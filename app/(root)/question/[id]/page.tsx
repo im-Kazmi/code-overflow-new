@@ -49,13 +49,13 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         </div>
         <div>
           <Votes
-            upvotes={question.upvotes}
-            downVotes={question.downVotes}
+            upvotes={question.upvotes.length}
+            downVotes={question.downVotes.length}
             hasUpvoted={question.upvotes.includes(mongoUser._id)}
             hasDownVoted={question.downVotes.includes(mongoUser._id)}
             userId={JSON.stringify(mongoUser._id)}
             itemId={question._id}
-            type="question"
+            type="Question"
             hasSaved={false}
           />
         </div>

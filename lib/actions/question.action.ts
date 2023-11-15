@@ -84,3 +84,63 @@ export async function getQuestionById(params: getQuestionByIdParams) {
     throw error;
   }
 }
+
+export async function upVoteQuestion(params: any) {
+  try {
+    const { questionId, userId, hasUpvoted, hasDownVoted } = params;
+
+    let updateQuery = {};
+
+    if (hasUpvoted) {
+      updateQuery = { $pull: { upvotes: userId } };
+    } else if (hasDownVoted) {
+      updateQuery = {
+        $pull: { downVotes: userId },
+        $push: { upvotes: userId },
+      };
+    } else {
+      updateQuery = {
+        $addToSet: { upvotes: userId },
+      };
+    }
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("no question found");
+    }
+
+    revalidatePath("/question/:id");
+  } catch (error) {}
+}
+
+export async function downVoteQuestion(params: any) {
+  try {
+    const { questionId, userId, hasUpvoted, hasDownVoted } = params;
+
+    let updateQuery = {};
+
+    if (hasDownVoted) {
+      updateQuery = { $pull: { downVotes: userId } };
+    } else if (hasUpvoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downVotes: userId },
+      };
+    } else {
+      updateQuery = {
+        $addToSet: { downVotes: userId },
+      };
+    }
+    const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
+      new: true,
+    });
+
+    if (!question) {
+      throw new Error("no question found");
+    }
+
+    revalidatePath("/question/:id");
+  } catch (error) {}
+}

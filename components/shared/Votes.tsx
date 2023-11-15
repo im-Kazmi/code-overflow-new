@@ -1,4 +1,8 @@
 "use client";
+import {
+  downVoteQuestion,
+  upVoteQuestion,
+} from "@/lib/actions/question.action";
 import React from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
@@ -23,7 +27,41 @@ const Votes = ({
   type,
   hasSaved,
 }: Props) => {
-  const handleVote = (action: string) => {};
+  const handleVote = async (action: string) => {
+    if (action === "upvote") {
+      if (type === "Question") {
+        await upVoteQuestion({
+          questionId: itemId,
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownVoted,
+        });
+      } else if (type === "Answer") {
+        // await upVoteAnswer({
+        //   questionId: itemId,
+        //   userId: JSON.parse(userId),
+        //   hasUpvoted,
+        //   hasDownVoted,
+        // });
+      }
+    } else if (action === "downvote") {
+      if (type === "question") {
+        await downVoteQuestion({
+          questionId: itemId,
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownVoted,
+        });
+      } else if (type === "Answer") {
+        // await downVoteAnswer({
+        //   questionId: itemId,
+        //   userId: JSON.parse(userId),
+        //   hasUpvoted,
+        //   hasDownVoted,
+        // });
+      }
+    }
+  };
   const handleSave = () => {};
   return (
     <div className=" flex  w-full gap-4">
@@ -35,13 +73,13 @@ const Votes = ({
         ) : (
           <div
             onClick={() => handleVote("upvote")}
-            className=" text-white my-auto"
+            className=" text-white my-auto cursor-pointer"
           >
             <BiUpvote />
           </div>
         )}
         <span className=" w-fit rounded-sm p-[4px] text-xs text-white bg-black/40">
-          0
+          {upvotes}
         </span>
       </div>
 
@@ -53,13 +91,13 @@ const Votes = ({
         ) : (
           <div
             onClick={() => handleVote("downvote")}
-            className=" text-white my-auto"
+            className=" text-white cursor-pointer my-auto"
           >
             <BiDownvote />
           </div>
         )}
         <span className=" w-fit rounded-sm p-[4px] text-xs text-white  bg-black/40">
-          2
+          {downVotes}
         </span>
       </div>
 
