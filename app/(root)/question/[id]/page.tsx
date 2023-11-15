@@ -70,7 +70,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
           Asked {moment(question.createdAt).fromNow()}
         </span>
         <span className=" text-sm flex gap-2 cursor-pointer">
-          <AiOutlineLike /> {question?.upvotes} votes
+          <AiOutlineLike /> {question?.upvotes.length} votes
         </span>
         <span className=" text-sm flex gap-2 cursor-pointer">
           <BiSolidMessageAltDetail /> {question.answers.length} answers
@@ -99,7 +99,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         <Filter filters={userFilters} />
       </div>
       <div className=" mt-5 flex flex-col">
-        <AllAnswers answers={answers} />
+        <AllAnswers answers={answers} userId={mongoUser._id} />
       </div>
       <div className="">
         <AnswerForm

@@ -32,11 +32,75 @@ export async function getAllAnswers(params: any) {
 
     const answers = await Answer.find({ question: questionId })
       .populate("author", "_id clerkId name picture ")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .lean();
 
     return answers;
   } catch (error: any) {
     console.log(error.message);
     throw error;
+  }
+}
+export async function upVoteAnswer(params: any) {
+  await connectToDatabase();
+  try {
+    const { answerId, userId, hasUpvoted, hasDownVoted } = params;
+
+    let updateQuery = {};
+
+    if (hasUpvoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+      };
+    } else if (hasDownVoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+        $push: { upvotes: userId },
+      };
+    } else {
+      updateQuery = {
+        $addToSet: { upvotes: userId },
+      };
+    }
+
+    await Answer.findByIdAndUpdate(answerId, updateQuery, {
+      new: true,
+    });
+
+    revalidatePath("/question/:id");
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function downVoteAnswer(params: any) {
+  await connectToDatabase();
+  try {
+    const { answerId, userId, hasUpvoted, hasDownVoted } = params;
+
+    let updateQuery = {};
+
+    if (hasDownVoted) {
+      updateQuery = {
+        $pull: { downvotes: userId },
+      };
+    } else if (hasUpvoted) {
+      updateQuery = {
+        $pull: { upvotes: userId },
+        $push: { downvotes: userId },
+      };
+    } else {
+      updateQuery = {
+        $addToSet: { downvotes: userId },
+      };
+    }
+
+    await Answer.findByIdAndUpdate(answerId, updateQuery, {
+      new: true,
+    });
+
+    revalidatePath("/question/:id");
+  } catch (error) {
+    console.log(error);
   }
 }

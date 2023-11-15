@@ -2,8 +2,9 @@ import moment from "moment";
 import Image from "next/image";
 import React from "react";
 import ParseHTML from "./ParseHTML";
+import Votes from "./Votes";
 
-const AllAnswers = async ({ answers }: any) => {
+const AllAnswers = async ({ answers, userId }: any) => {
   return (
     <div className=" w-full flex ">
       {answers.length > 0 ? (
@@ -23,6 +24,18 @@ const AllAnswers = async ({ answers }: any) => {
                   <span className=" my-auto text-white ml-2 text-xs">
                     Answered {moment(answer.createdAt).fromNow()}
                   </span>
+                </div>
+                <div>
+                  <Votes
+                    upvotes={answer.upvotes?.length}
+                    downVotes={answer.downVotes?.length}
+                    hasUpvoted={answer.upvotes?.includes(userId)}
+                    hasDownVoted={answer.downVotes?.includes(userId)}
+                    userId={JSON.stringify(userId)}
+                    itemId={answer._id}
+                    type="Answer"
+                    hasSaved={false}
+                  />
                 </div>
               </div>
               <div className=" flex flex-col mt-3">

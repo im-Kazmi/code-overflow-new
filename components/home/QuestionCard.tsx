@@ -18,8 +18,8 @@ interface QuestionProps {
     name: string;
     picture: string;
   };
-  upvotes: number;
-  views: number;
+  upvotes: string[] | Array<object>;
+  views: number[];
   answers: Array<object>;
   createdAt: Date;
 }
@@ -60,13 +60,13 @@ const QuestionCard = ({
           </div>
           <div className=" flex gap-3  max-sm:mt-4 ">
             <span className=" text-sm flex gap-2 cursor-pointer">
-              <AiOutlineLike /> {upvotes} votes
+              <AiOutlineLike /> {upvotes?.length} votes
             </span>
             <span className=" text-sm flex gap-2 cursor-pointer">
               <BiSolidMessageAltDetail /> {answers.length} answers
             </span>
             <span className=" text-sm flex gap-2 cursor-pointer">
-              <AiOutlineEye /> {views} views
+              <AiOutlineEye /> {views?.length} views
             </span>
           </div>
         </div>

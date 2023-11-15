@@ -1,4 +1,5 @@
 "use client";
+import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
 import {
   downVoteQuestion,
   upVoteQuestion,
@@ -37,12 +38,12 @@ const Votes = ({
           hasDownVoted,
         });
       } else if (type === "Answer") {
-        // await upVoteAnswer({
-        //   questionId: itemId,
-        //   userId: JSON.parse(userId),
-        //   hasUpvoted,
-        //   hasDownVoted,
-        // });
+        await upVoteAnswer({
+          answerId: itemId,
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownVoted,
+        });
       }
     } else if (action === "downvote") {
       if (type === "Question") {
@@ -53,12 +54,12 @@ const Votes = ({
           hasDownVoted,
         });
       } else if (type === "Answer") {
-        // await downVoteAnswer({
-        //   questionId: itemId,
-        //   userId: JSON.parse(userId),
-        //   hasUpvoted,
-        //   hasDownVoted,
-        // });
+        await downVoteAnswer({
+          answerId: itemId,
+          userId: JSON.parse(userId),
+          hasUpvoted,
+          hasDownVoted,
+        });
       }
     }
   };
