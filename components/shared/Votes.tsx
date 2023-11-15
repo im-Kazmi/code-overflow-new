@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
