@@ -15,7 +15,7 @@ interface Props {
 }
 const UserCard = ({ user }: Props) => {
   const interactedTags = [
-    { _id: "1", name: "React" },
+    { _id: "1", name: "Node.js" },
     { _id: "2", name: "Next.js" },
   ];
   return (
