@@ -45,7 +45,7 @@ const Votes = ({
         // });
       }
     } else if (action === "downvote") {
-      if (type === "question") {
+      if (type === "Question") {
         await downVoteQuestion({
           questionId: itemId,
           userId: JSON.parse(userId),
