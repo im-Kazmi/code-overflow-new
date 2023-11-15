@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createQuestion } from "@/lib/actions/question.action";
-import { json } from "stream/consumers";
 
 import { usePathname, useRouter } from "next/navigation";
 const Question = ({ mongoUserId }: { mongoUserId: string }) => {
@@ -161,7 +160,9 @@ const Question = ({ mongoUserId }: { mongoUserId: string }) => {
                       "alignright alignjustify | bullist numlist outdent indent | " +
                       "removeformat | help preview ",
                     content_style:
-                      "body { font-family:Inter,sans-serif; font-size:16px; background-color:rgb(20,20,20);color:white; }",
+                      "body { font-family:Inter,sans-serif; font-size:16px}",
+                    skin: "oxide-dark",
+                    content_css: "dark",
                   }}
                 />
               </FormControl>
