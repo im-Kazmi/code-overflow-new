@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { getUserTopInteractedTags } from "@/lib/actions/tag.actions";
 import Image from "next/image";
 import Link from "next/link";
