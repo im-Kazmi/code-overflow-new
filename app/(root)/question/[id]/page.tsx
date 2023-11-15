@@ -14,6 +14,7 @@ import { userFilters } from "@/constants";
 import Filter from "@/components/shared/Filter";
 import { getAllAnswers } from "@/lib/actions/answer.action";
 import moment from "moment";
+import Votes from "@/components/shared/Votes";
 
 const QuestionDetail = async ({ params }: { params: Params }) => {
   const { id } = params;
@@ -33,18 +34,33 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
 
   return (
     <div className="flex flex-col w-full mt-5">
-      <div className=" flex gap-3">
-        <Image
-          src={question.author.picture}
-          width={40}
-          height={40}
-          alt={question.author.name}
-          className=" rounded-full"
-        />
-        <h1 className=" text-neutral-300 my-auto font-semibold">
-          {question.author.name}
-        </h1>
+      <div className="flex justify-between w-full">
+        <div className=" flex gap-3">
+          <Image
+            src={question.author.picture}
+            width={40}
+            height={40}
+            alt={question.author.name}
+            className=" rounded-full"
+          />
+          <h1 className=" text-neutral-300 my-auto font-semibold">
+            {question.author.name}
+          </h1>
+        </div>
+        <div>
+          <Votes
+            upvotes={question.upvotes}
+            downVotes={question.downVotes}
+            hasUpvoted={question.upvotes.includes(mongoUser._id)}
+            hasDownVoted={question.downVotes.includes(mongoUser._id)}
+            userId={JSON.stringify(mongoUser._id)}
+            itemId={question._id}
+            type="question"
+            hasSaved={false}
+          />
+        </div>
       </div>
+      {/* Here to put Votes</div> */}
       <p className=" text-2xl font-bold text-white mt-5 first-letter:uppercase">
         {question.title}
       </p>

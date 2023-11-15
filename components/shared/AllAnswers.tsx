@@ -28,6 +28,9 @@ const AllAnswers = async ({ answers }: any) => {
               <div className=" flex flex-col mt-3">
                 <ParseHTML data={answer.content} />
               </div>
+              <div className="my-5  w-full">
+                <hr className=" w-full border-neutral-600" />
+              </div>
             </div>
           ))}
         </div>
