@@ -10,6 +10,7 @@ import { getUserSavedQuestions } from "@/lib/actions/user.action";
 
 export default async function page() {
   const { userId: clerkId } = auth();
+
   if (!clerkId) return null;
 
   const savedQuestions = await getUserSavedQuestions({ clerkId });
@@ -35,7 +36,7 @@ export default async function page() {
 
         <div className=" mt-10 flex flex-col gap-10">
           {savedQuestions && savedQuestions?.length > 0 ? (
-            savedQuestions?.map((question) => (
+            savedQuestions?.map((question: any) => (
               <QuestionCard
                 key={question._id}
                 _id={question._id}
