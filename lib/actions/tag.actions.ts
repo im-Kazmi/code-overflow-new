@@ -34,7 +34,6 @@ export async function getAllTags() {
   try {
     // const { page = 1, pageSize = 20 } = params;
     const tags = await Tag.find({}).lean();
-    console.log(tags);
 
     return tags;
   } catch (error: any) {

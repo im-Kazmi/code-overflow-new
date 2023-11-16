@@ -29,8 +29,10 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
   const question = await getQuestionById({ id });
   const answers = await getAllAnswers({ questionId: question._id });
 
-  console.log(answers);
-  console.log(id);
+  // console.log("Does questin saved ", mongoUser.saved.includes(JSON.stringify(question._id)));
+
+  // console.log("JSON.stringify = ", JSON.stringify(question._id));
+  // console.log("toString = ", question._id.toString());
 
   return (
     <div className="flex flex-col w-full mt-5">
@@ -49,14 +51,14 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         </div>
         <div>
           <Votes
-            upvotes={question.upvotes.length}
-            downVotes={question.downVotes.length}
-            hasUpvoted={question.upvotes.includes(mongoUser._id)}
-            hasDownVoted={question.downVotes.includes(mongoUser._id)}
+            upvotes={question.upvotes?.length}
+            downVotes={question.downVotes?.length}
+            hasUpvoted={question.upvotes?.includes(mongoUser._id)}
+            hasDownVoted={question.downVotes?.includes(mongoUser._id)}
+            hasSaved={mongoUser?.saved.includes(question._id)}
             userId={JSON.stringify(mongoUser._id)}
-            itemId={question._id}
+            itemId={JSON.stringify(question._id)}
             type="Question"
-            hasSaved={false}
           />
         </div>
       </div>
@@ -104,8 +106,8 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
       <div className="">
         <AnswerForm
           answersCount={question?.answers?.length}
-          questionId={question._id}
-          userId={mongoUser._id}
+          questionId={JSON.stringify(question._id)}
+          userId={JSON.stringify(mongoUser._id)}
         />
       </div>
     </div>

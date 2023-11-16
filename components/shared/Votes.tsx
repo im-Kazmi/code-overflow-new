@@ -2,6 +2,7 @@
 import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
 import {
   downVoteQuestion,
+  saveQuestion,
   upVoteQuestion,
 } from "@/lib/actions/question.action";
 import React from "react";
@@ -32,7 +33,7 @@ const Votes = ({
     if (action === "upvote") {
       if (type === "Question") {
         await upVoteQuestion({
-          questionId: itemId,
+          questionId: JSON.parse(itemId),
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownVoted,
@@ -48,12 +49,14 @@ const Votes = ({
     } else if (action === "downvote") {
       if (type === "Question") {
         await downVoteQuestion({
-          questionId: itemId,
+          questionId: JSON.parse(itemId),
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownVoted,
         });
       } else if (type === "Answer") {
+        console.log("hasDownVoted", hasDownVoted);
+        console.log("hasDownVoted", hasUpvoted);
         await downVoteAnswer({
           answerId: itemId,
           userId: JSON.parse(userId),
@@ -63,7 +66,14 @@ const Votes = ({
       }
     }
   };
-  const handleSave = () => {};
+  const handleSave = async () => {
+    try {
+      await saveQuestion({
+        questionId: JSON.parse(itemId),
+        userId: JSON.parse(userId),
+      });
+    } catch (error) {}
+  };
   return (
     <div className=" flex  w-full gap-4">
       <div className="  flex gap-1 ">
@@ -104,11 +114,17 @@ const Votes = ({
 
       <div className="  flex gap-1 ">
         {hasSaved ? (
-          <div className=" text-orange-400 my-auto">
+          <div
+            onClick={handleSave}
+            className=" cursor-pointer text-orange-400 my-auto"
+          >
             <TbStarFilled />
           </div>
         ) : (
-          <div onClick={handleSave} className=" text-orange-400 my-auto">
+          <div
+            onClick={handleSave}
+            className=" cursor-pointer text-white  my-auto"
+          >
             <TbStar />
           </div>
         )}

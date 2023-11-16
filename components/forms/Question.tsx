@@ -45,7 +45,6 @@ const Question = ({ mongoUserId }: { mongoUserId: string }) => {
         path: "/",
       });
 
-      console.log(values.tags);
       router.push("/");
     } catch (error) {}
   }

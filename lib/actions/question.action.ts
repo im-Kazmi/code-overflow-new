@@ -33,12 +33,10 @@ export async function createQuestion(params: createQuestionParams) {
         { $setOnInsert: { name: tag }, $push: { questions: question._id } },
         { upsert: true, new: true }
       );
-      console.log(`Tag: ${tag}, Existing Tag:`, existingTag);
       // await Promise.all(tagDocuments);
       tagDocuments.push(existingTag._id);
     }
 
-    console.log(tagDocuments);
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
     });
@@ -143,4 +141,42 @@ export async function downVoteQuestion(params: any) {
 
     revalidatePath("/question/:id");
   } catch (error) {}
+}
+
+export async function saveQuestion(params: any) {
+  await connectToDatabase();
+  try {
+    const { questionId, userId } = params;
+
+    const user = await User.findById(userId);
+
+    // console.log("user = ", user);
+    // console.log("saved questions = ", user.saved);
+    const isQuestionSaved = await user?.saved?.includes(questionId);
+
+    if (isQuestionSaved) {
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $pull: { saved: questionId },
+        },
+        { new: true }
+      );
+    } else {
+      await User.findByIdAndUpdate(
+        userId,
+        {
+          $addToSet: { saved: questionId },
+        },
+        { new: true }
+      );
+    }
+    if (!user) {
+      throw new Error("user not found");
+    }
+
+    revalidatePath("/question/:id");
+  } catch (error) {
+    console.log(error);
+  }
 }

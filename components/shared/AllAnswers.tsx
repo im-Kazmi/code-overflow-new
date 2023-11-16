@@ -28,13 +28,12 @@ const AllAnswers = async ({ answers, userId }: any) => {
                 <div>
                   <Votes
                     upvotes={answer.upvotes?.length}
-                    downVotes={answer.downVotes?.length}
+                    downVotes={answer.downvotes?.length}
                     hasUpvoted={answer.upvotes?.includes(userId)}
                     hasDownVoted={answer.downvotes?.includes(userId)}
                     userId={JSON.stringify(userId)}
-                    itemId={answer._id}
+                    itemId={JSON.stringify(answer._id)}
                     type="Answer"
-                    hasSaved={false}
                   />
                 </div>
               </div>

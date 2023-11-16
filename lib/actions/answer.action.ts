@@ -74,16 +74,13 @@ export async function upVoteAnswer(params: any) {
 }
 
 export async function downVoteAnswer(params: any) {
-  await connectToDatabase();
   try {
     const { answerId, userId, hasUpvoted, hasDownVoted } = params;
 
     let updateQuery = {};
 
     if (hasDownVoted) {
-      updateQuery = {
-        $pull: { downvotes: userId },
-      };
+      updateQuery = { $pull: { downvotes: userId } };
     } else if (hasUpvoted) {
       updateQuery = {
         $pull: { upvotes: userId },
@@ -94,13 +91,14 @@ export async function downVoteAnswer(params: any) {
         $addToSet: { downvotes: userId },
       };
     }
-
-    await Answer.findByIdAndUpdate(answerId, updateQuery, {
+    const question = await Answer.findByIdAndUpdate(answerId, updateQuery, {
       new: true,
     });
 
+    if (!question) {
+      throw new Error("no question found");
+    }
+
     revalidatePath("/question/:id");
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }

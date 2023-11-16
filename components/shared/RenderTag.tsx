@@ -20,7 +20,6 @@ const RenderTag = ({
   return (
     <Link
       href={`/tags/${_id}`}
-      id={_id}
       className=" flex justify-between cursor-pointer"
     >
       <p
