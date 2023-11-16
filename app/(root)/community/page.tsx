@@ -13,7 +13,7 @@ const Community = async () => {
         <Search placeholder="Search Amazing Minds" />
         <Filter filters={userFilters} />
       </div>
-      <div className=" w-full flex flex-wrap mt-5">
+      <div className=" w-full flex flex-wrap mt-5 gap-2">
         {users?.map((user) => (
           <UserCard key={user._id} user={user} />
         ))}

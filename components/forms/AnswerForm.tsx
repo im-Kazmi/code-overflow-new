@@ -38,9 +38,9 @@ const AnswerForm = ({ answersCount, questionId, userId }: Props) => {
   async function onSubmit(values: z.infer<typeof answerSchema>) {
     try {
       await createAnswer({
-        author: userId,
+        author: JSON.parse(userId),
         content: values.answer,
-        question: questionId,
+        question: JSON.parse(questionId),
       });
       form.reset();
       if (editorRef.current) {

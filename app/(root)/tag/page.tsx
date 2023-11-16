@@ -48,10 +48,10 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
           <Votes
             upvotes={question.upvotes?.length}
             downVotes={question.downVotes?.length}
-            hasUpvoted={question.upvotes?.includes(mongoUser?._id)}
-            hasDownVoted={question.downVotes?.includes(mongoUser?._id)}
+            hasUpvoted={question.upvotes?.includes(mongoUser._id)}
+            hasDownVoted={question.downVotes?.includes(mongoUser._id)}
             hasSaved={mongoUser?.saved.includes(question._id)}
-            userId={JSON.stringify(mongoUser?._id)}
+            userId={JSON.stringify(mongoUser._id)}
             itemId={JSON.stringify(question._id)}
             type="Question"
           />
@@ -96,13 +96,13 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         <Filter filters={userFilters} />
       </div>
       <div className=" mt-5 flex flex-col">
-        <AllAnswers answers={answers} userId={mongoUser?._id} />
+        <AllAnswers answers={answers} userId={mongoUser._id} />
       </div>
       <div className="">
         <AnswerForm
           answersCount={question?.answers?.length}
-          questionId={JSON.stringify(question?._id)}
-          userId={JSON.stringify(mongoUser?._id)}
+          questionId={JSON.stringify(question._id)}
+          userId={JSON.stringify(mongoUser._id)}
         />
       </div>
     </div>

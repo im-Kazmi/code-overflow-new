@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 "use server";
 
+import { User } from "lucide-react";
+import Question from "../database/question.model";
 // import Question from "../database/question.model";
-import Tag from "../database/tag.model";
+import Tag, { ITag } from "../database/tag.model";
 // import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
 
@@ -36,6 +38,43 @@ export async function getAllTags() {
     const tags = await Tag.find({}).lean();
 
     return tags;
+  } catch (error: any) {
+    console.log(error.message);
+    throw error;
+  }
+}
+
+export async function tag(params: any) {
+  await connectToDatabase();
+  try {
+    const { tagId, page = 1, pageSize = 20, searchQuery } = params;
+
+    const questionByTag = await Tag.findOne({ _id: tagId })
+      .populate({
+        path: "questions",
+        model: Question,
+        match: searchQuery
+          ? { title: { $regex: searchQuery, $options: "i" } }
+          : {},
+        options: {
+          sort: { createdAt: -1 },
+        },
+        populate: [
+          {
+            path: "author",
+            model: "User",
+            select: "_id name picture clerkId ",
+          },
+          {
+            path: "tags",
+            model: "Tag",
+            select: "_id name ",
+          },
+        ],
+      })
+      .lean();
+
+    return questionByTag;
   } catch (error: any) {
     console.log(error.message);
     throw error;
