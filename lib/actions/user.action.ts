@@ -6,6 +6,7 @@ import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
 import Question from "../database/question.model";
 import { getAllUsersParams } from "./shared.types";
+import Tag from "../database/tag.model";
 
 export async function getUserById(params: any) {
   await connectToDatabase();
@@ -84,4 +85,33 @@ export async function getUsers() {
     console.log(error.message);
     throw error;
   }
+}
+
+export async function getUserSavedQuestions(params: any) {
+  try {
+    const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
+
+    const user = await User.findOne({ clerkId }).populate({
+      path: "saved",
+      model: Question,
+      match: searchQuery
+        ? { title: { regex: new RegExp(searchQuery, "i") } }
+        : {},
+      options: {
+        sort: { createdAt: -1 },
+      },
+      populate: [
+        { path: "tags", model: Tag, select: " _id name" },
+        { path: "author", model: User, select: " _id name clerkId picture" },
+      ],
+    });
+
+    if (!user) {
+      throw new Error("user not found");
+    }
+
+    const savedQuestions = user.saved;
+
+    return savedQuestions;
+  } catch (error) {}
 }
