@@ -51,9 +51,9 @@ export default async function page() {
             ))
           ) : (
             <NoResult
-              title={"No question to Show"}
-              ButtonText="Ask a Question"
-              link="/ask-question"
+              title={"No Saved Questions"}
+              ButtonText="Save Some"
+              link="/"
             />
           )}
         </div>

@@ -1,11 +1,13 @@
 "use client";
 import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
+import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
   downVoteQuestion,
   saveQuestion,
   upVoteQuestion,
 } from "@/lib/actions/question.action";
-import React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
 
@@ -29,6 +31,9 @@ const Votes = ({
   type,
   hasSaved,
 }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const handleVote = async (action: string) => {
     if (action === "upvote") {
       if (type === "Question") {
@@ -74,11 +79,20 @@ const Votes = ({
       });
     } catch (error) {}
   };
+
+  useEffect(() => {
+    viewQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      action: "view",
+    });
+  }, [itemId, userId, pathname]);
+
   return (
     <div className=" flex  w-full gap-4">
       <div className="  flex gap-1 ">
         {hasUpvoted ? (
-          <div className=" text-orange-400  my-auto">
+          <div className=" text-green-400 font-bold  my-auto">
             <BiUpvote />
           </div>
         ) : (
@@ -96,7 +110,7 @@ const Votes = ({
 
       <div className="  flex gap-1 ">
         {hasDownVoted ? (
-          <div className=" text-orange-400 my-auto">
+          <div className=" text-green-400 font-bold  my-auto">
             <BiDownvote />
           </div>
         ) : (

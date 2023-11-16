@@ -29,11 +29,6 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
   const question = await getQuestionById({ id });
   const answers = await getAllAnswers({ questionId: question._id });
 
-  // console.log("Does questin saved ", mongoUser.saved.includes(JSON.stringify(question._id)));
-
-  // console.log("JSON.stringify = ", JSON.stringify(question._id));
-  // console.log("toString = ", question._id.toString());
-
   return (
     <div className="flex flex-col w-full mt-5">
       <div className="flex justify-between w-full">
