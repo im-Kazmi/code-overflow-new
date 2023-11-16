@@ -52,13 +52,9 @@ export async function upVoteAnswer(params: any) {
       updateQuery = {
         $pull: { upvotes: userId },
       };
-    } else if (hasDownVoted) {
-      updateQuery = {
-        $pull: { downvotes: userId },
-        $push: { upvotes: userId },
-      };
     } else {
       updateQuery = {
+        $pull: { downvotes: userId },
         $addToSet: { upvotes: userId },
       };
     }
@@ -81,24 +77,23 @@ export async function downVoteAnswer(params: any) {
 
     if (hasDownVoted) {
       updateQuery = { $pull: { downvotes: userId } };
-    } else if (hasUpvoted) {
-      updateQuery = {
-        $pull: { upvotes: userId },
-        $push: { downvotes: userId },
-      };
     } else {
       updateQuery = {
+        $pull: { upvotes: userId },
         $addToSet: { downvotes: userId },
       };
     }
+
     const question = await Answer.findByIdAndUpdate(answerId, updateQuery, {
       new: true,
     });
 
     if (!question) {
-      throw new Error("no question found");
+      throw new Error("No question found");
     }
 
     revalidatePath("/question/:id");
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }

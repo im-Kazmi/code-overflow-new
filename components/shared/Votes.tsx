@@ -40,7 +40,7 @@ const Votes = ({
         });
       } else if (type === "Answer") {
         await upVoteAnswer({
-          answerId: itemId,
+          answerId: JSON.parse(itemId),
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownVoted,
@@ -58,7 +58,7 @@ const Votes = ({
         console.log("hasDownVoted", hasDownVoted);
         console.log("hasDownVoted", hasUpvoted);
         await downVoteAnswer({
-          answerId: itemId,
+          answerId: JSON.parse(itemId),
           userId: JSON.parse(userId),
           hasUpvoted,
           hasDownVoted,
@@ -78,7 +78,7 @@ const Votes = ({
     <div className=" flex  w-full gap-4">
       <div className="  flex gap-1 ">
         {hasUpvoted ? (
-          <div className=" text-orange-400 my-auto">
+          <div className=" text-orange-400  my-auto">
             <BiUpvote />
           </div>
         ) : (
@@ -111,24 +111,25 @@ const Votes = ({
           {downVotes}
         </span>
       </div>
-
-      <div className="  flex gap-1 ">
-        {hasSaved ? (
-          <div
-            onClick={handleSave}
-            className=" cursor-pointer text-orange-400 my-auto"
-          >
-            <TbStarFilled />
-          </div>
-        ) : (
-          <div
-            onClick={handleSave}
-            className=" cursor-pointer text-white  my-auto"
-          >
-            <TbStar />
-          </div>
-        )}
-      </div>
+      {type === "Question" && (
+        <div className="  flex gap-1 ">
+          {hasSaved ? (
+            <div
+              onClick={handleSave}
+              className=" cursor-pointer text-orange-400 my-auto"
+            >
+              <TbStarFilled />
+            </div>
+          ) : (
+            <div
+              onClick={handleSave}
+              className=" cursor-pointer text-white  my-auto"
+            >
+              <TbStar />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
