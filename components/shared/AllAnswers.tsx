@@ -30,7 +30,7 @@ const AllAnswers = async ({ answers, userId }: any) => {
                     upvotes={answer.upvotes?.length}
                     downVotes={answer.downVotes?.length}
                     hasUpvoted={answer.upvotes?.includes(userId)}
-                    hasDownVoted={answer.downVotes?.includes(userId)}
+                    hasDownVoted={answer.downvotes?.includes(userId)}
                     userId={JSON.stringify(userId)}
                     itemId={answer._id}
                     type="Answer"
