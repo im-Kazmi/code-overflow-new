@@ -6,7 +6,7 @@ import {
   saveQuestion,
   upVoteQuestion,
 } from "@/lib/actions/question.action";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
@@ -31,7 +31,6 @@ const Votes = ({
   type,
   hasSaved,
 }: Props) => {
-  const router = useRouter();
   const pathname = usePathname();
 
   const handleVote = async (action: string) => {
