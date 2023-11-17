@@ -15,7 +15,7 @@ const Navbar = () => {
           height={23}
           alt="CodeOverFlow"
         />
-        <p className="text-xl text-white  max-sm:hidden">
+        <p className="text-xl text-white  max-md:hidden">
           Code <span className="  font-bold text-orange-500">Overflow</span>
         </p>
       </Link>
