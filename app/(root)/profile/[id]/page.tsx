@@ -1,3 +1,6 @@
+import AnswersTab from "@/components/shared/AnswersTab";
+import QuestionsTab from "@/components/shared/QuestionsTab";
+import Stats from "@/components/shared/Stats";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
 import { auth } from "@clerk/nextjs";
@@ -42,18 +45,26 @@ const Page = async ({
           </div>
         </div>
       </div>
-      {/* TODO: SHOW STATS RIGHT HERE */}
-      <div className=" grid grid-cols-2"></div>
 
-      {/* TABS DONE  */}
+      {/* TODO: SHOW STATS RIGHT HERE */}
+
+      <Stats
+        totalQuestions={userInfo?.totalQuestions as number}
+        totalAnswers={userInfo?.totalAnswers as number}
+      />
+
       <div className="flex flex-col m-auto w-fit mt-10">
         <Tabs defaultValue="top-posts " className=" text-white">
           <TabsList className=" flex gap-2 bg-transparent">
             <TabsTrigger value="top-posts">TopPosts</TabsTrigger>
             <TabsTrigger value="answers">Answers</TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">TopPosts</TabsContent>
-          <TabsContent value="answers">Answers</TabsContent>
+          <TabsContent value="top-posts">
+            <QuestionsTab />
+          </TabsContent>
+          <TabsContent value="answers">
+            <AnswersTab />
+          </TabsContent>
         </Tabs>
       </div>
     </div>
