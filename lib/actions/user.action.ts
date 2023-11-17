@@ -138,3 +138,39 @@ export async function getUserInfo(params: any) {
     return { user, totalQuestions, totalAnswers };
   } catch (error) {}
 }
+
+export async function getUserQuestions(params: any) {
+  try {
+    const { userId, page = 1, pageSize = 10 } = params;
+    const userQuestions = await Question.find({ author: userId })
+      .sort({
+        createdAt: -1,
+        upvotes: -1,
+      })
+      .populate("author", " _id clerkId name picture")
+      .populate("tags", " _id name")
+      .limit(3);
+
+    return userQuestions;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserAnswers(params: any) {
+  try {
+    const { userId, page = 1, pageSize = 10 } = params;
+    const userAnswers = await Answer.find({ author: userId })
+      .sort({
+        createdAt: -1,
+        upvotes: -1,
+      })
+      .populate("author", " _id clerkId name picture")
+      .populate("question", "title")
+      .limit(3);
+
+    return userAnswers;
+  } catch (error) {
+    console.log(error);
+  }
+}

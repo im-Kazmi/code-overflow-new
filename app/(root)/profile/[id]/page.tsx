@@ -20,7 +20,7 @@ const Page = async ({
   const { user }: any = userInfo;
   const { userId } = auth();
   return (
-    <div className=" w-full flex flex-col bg-black/30 items-center rounded-md">
+    <div className=" w-full flex flex-col bg-black/30 items-center py-5 rounded-md">
       <div className=" flex  flex-col w-fit gap-3 justify-center  mt-5">
         <Image
           src={user.picture}
@@ -46,8 +46,6 @@ const Page = async ({
         </div>
       </div>
 
-      {/* TODO: SHOW STATS RIGHT HERE */}
-
       <Stats
         totalQuestions={userInfo?.totalQuestions as number}
         totalAnswers={userInfo?.totalAnswers as number}
@@ -60,10 +58,14 @@ const Page = async ({
             <TabsTrigger value="answers">Answers</TabsTrigger>
           </TabsList>
           <TabsContent value="top-posts">
-            <QuestionsTab />
+            <QuestionsTab
+              searchParams={searchParams}
+              clerkId={userId}
+              userId={user._id}
+            />
           </TabsContent>
           <TabsContent value="answers">
-            <AnswersTab />
+            <AnswersTab userId={user._id} />
           </TabsContent>
         </Tabs>
       </div>

@@ -20,8 +20,9 @@ interface QuestionProps {
   };
   upvotes: string[] | Array<object>;
   views: number[];
-  answers: Array<object>;
+  answers?: Array<object>;
   createdAt: Date;
+  isProfile?: boolean;
 }
 const QuestionCard = ({
   _id,
@@ -32,6 +33,7 @@ const QuestionCard = ({
   views,
   answers,
   createdAt,
+  isProfile = false,
 }: QuestionProps) => {
   return (
     <Link
@@ -46,7 +48,7 @@ const QuestionCard = ({
             <RenderTag _id={tag._id} key={tag._id} name={tag.name} />
           ))}
         </div>
-        <div className=" flex w-full px-3 mt-3 justify-between max-sm:flex-col ">
+        <div className=" flex w-full px-3 mt-3 gap-3 justify-between max-sm:flex-col ">
           <div className=" flex gap-2">
             <Image
               src={author.picture}
@@ -56,16 +58,16 @@ const QuestionCard = ({
               className=" rounded-full"
             />
             <h1 className="">{author.name}</h1>
-            <span>{moment(createdAt).fromNow()}</span>
+            {!isProfile && <span>{moment(createdAt).fromNow()}</span>}
           </div>
           <div className=" flex gap-3  max-sm:mt-4 ">
-            <span className=" text-sm flex gap-2 cursor-pointer">
+            <span className=" text-sm my-auto flex gap-2 cursor-pointer">
               <AiOutlineLike /> {upvotes?.length} votes
             </span>
-            <span className=" text-sm flex gap-2 cursor-pointer">
-              <BiSolidMessageAltDetail /> {answers.length} answers
+            <span className=" text-sm my-auto flex gap-2 cursor-pointer">
+              <BiSolidMessageAltDetail /> {answers && answers.length} answers
             </span>
-            <span className=" text-sm flex gap-2 cursor-pointer">
+            <span className=" text-sm my-auto flex gap-2 cursor-pointer">
               <AiOutlineEye /> {views?.length} views
             </span>
           </div>
