@@ -21,7 +21,7 @@ interface FilterProps {
 
 const Filter = ({ filters }: FilterProps) => {
   return (
-    <div className=" max-sm:flex max-sm:w-full">
+    <div className=" max-sm:flex">
       <Select>
         <SelectTrigger className="w-[180px]  text-white border-none shadow-lg my-auto bg-black/40 outline-none h-14 focus:border-none">
           <SelectValue placeholder="Select a Filter" className="" />

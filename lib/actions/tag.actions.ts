@@ -72,6 +72,8 @@ export async function tag(params: any) {
           },
         ],
       })
+      .populate("questions.author")
+      .populate("questions.tags")
       .lean();
 
     return questionByTag;

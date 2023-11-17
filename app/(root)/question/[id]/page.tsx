@@ -76,7 +76,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
           <AiOutlineEye /> {question.views} views
         </span>
       </div>
-      <div className=" mt-10 max-md:max-w-[500px]">
+      <div className=" mt-10 max-w-[700px] max-lg:max-w-[500px]">
         <ParseHTML data={question.content} />
       </div>
       <div className=" mt-5 flex gap-4">
@@ -90,7 +90,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         ))}
       </div>
       <div className=" flex justify-between ">
-        <span className=" text-orange-400 my-auto font-bold">
+        <span className=" text-orange-400 flex my-auto font-bold">
           {question?.answers.length} Answers
         </span>
         <Filter filters={userFilters} />

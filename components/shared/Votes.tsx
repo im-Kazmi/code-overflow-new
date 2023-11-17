@@ -88,7 +88,7 @@ const Votes = ({
   }, [itemId, userId, pathname]);
 
   return (
-    <div className=" flex  w-full gap-4">
+    <div className=" flex  w-full gap-4 max-sm:hidden">
       <div className="  flex gap-1 ">
         {hasUpvoted ? (
           <div className=" text-green-400 font-bold  my-auto">

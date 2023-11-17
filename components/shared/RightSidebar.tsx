@@ -20,13 +20,13 @@ const RightSidebar = () => {
               <Link
                 href={"/"}
                 key={question.id}
-                className="flex cursor-pointer items-center
-             justify-between gap-7 px-2 py-1 rounded-lg hover:bg-black/50"
+                className="flex w-full cursor-pointer
+              gap-7 px-1 py-1 rounded-md hover:bg-black/50"
               >
                 <p className=" text-white text-sm">{question.title}</p>
-                <span className=" text-white">
+                {/* <span className=" text-white">
                   <BiSolidChevronRight />
-                </span>
+                </span> */}
               </Link>
             ))}
           </div>

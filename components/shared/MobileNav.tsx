@@ -15,7 +15,7 @@ const MobileNav = () => {
   return (
     <div className=" w-full  justify-between hidden max-sm:flex">
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger className=" bg-transparent">
           <Image
             src={"/assets/icons/hamburger.svg"}
             alt="hamburger"

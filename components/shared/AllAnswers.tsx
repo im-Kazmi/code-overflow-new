@@ -37,7 +37,7 @@ const AllAnswers = async ({ answers, userId }: any) => {
                   />
                 </div>
               </div>
-              <div className=" flex flex-col mt-3">
+              <div className=" flex flex-col mt-3 max-w-[600px] max-lg:max-w-[500px]">
                 <ParseHTML data={answer.content} />
               </div>
               <div className="my-5  w-full">

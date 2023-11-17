@@ -20,15 +20,17 @@ import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-typescript";
 import "prismjs/components/prism-solidity";
 import "prismjs/components/prism-tsx";
-// import "prismjs/plugins/line-numbers/prism-line-numbers.js";
-// import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js";
+import "prismjs/plugins/highlight-keywords/prism-highlight-keywords.js";
 
 interface Props {
   data: string;
 }
 const ParseHTML = ({ data }: Props) => {
   useEffect(() => Prism.highlightAll(), []);
-  return <div className=" text-white">{parse(data)}</div>;
+  return <div className=" text-white ">{parse(data)}</div>;
 };
 
 export default ParseHTML;

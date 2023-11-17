@@ -36,7 +36,7 @@ const QuestionCard = ({
   return (
     <Link
       href={`/question/${_id}`}
-      className=" cursor-pointer w-full p-5 bg-black/40 rounded-lg flex flex-col"
+      className=" cursor-pointer w-full p-5 text-white bg-black/40 rounded-lg flex flex-col"
     >
       <div className=" w-full flex-col">
         <span className="hidden max-sm:flex text-sm">2 days ago</span>
