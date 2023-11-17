@@ -1,8 +1,9 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
+import { auth } from "@clerk/nextjs";
 import moment from "moment";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
-import React from "react";
 
 const Page = async ({
   params,
@@ -14,9 +15,10 @@ const Page = async ({
   const { id } = params;
   const userInfo = await getUserInfo({ userId: id });
   const { user }: any = userInfo;
+  const { userId } = auth();
   return (
-    <div className=" w-full flex flex-col">
-      <div className=" flex  flex-col w-fit gap-3 justify-center">
+    <div className=" w-full flex flex-col bg-black/30 items-center rounded-md">
+      <div className=" flex  flex-col w-fit gap-3 justify-center  mt-5">
         <Image
           src={user.picture}
           width={180}
@@ -27,13 +29,32 @@ const Page = async ({
         <div className="flex flex-col m-auto gap-1 w-fit  ">
           <h1 className=" text-xl m-auto  font-bold text-white">{user.name}</h1>
           <span className="text-xs m-auto  text-white">@{user.username}</span>
+          {id === userId && (
+            <button className=" px-3 py-2 rounded-md bg-black/40 text-orange-500">
+              Edit Profile
+            </button>
+          )}
+          <div className=" flex gap-2 text-xs text-white mt-2">
+            <span>Joined</span>
+            <span className=" text-green-400 bg-black/80 px-2 rounded-lg    ">
+              {moment(user.joinedAt).fromNow()}
+            </span>
+          </div>
         </div>
       </div>
-      <div className="flex flex-col m-auto">
-        <div className=" flex gap-2 text-white">
-          <span>Joined</span>
-          <span className=" ">{moment(user.joinedAt).fromNow()}</span>
-        </div>
+      {/* TODO: SHOW STATS RIGHT HERE */}
+      <div className=" grid grid-cols-2"></div>
+
+      {/* TABS DONE  */}
+      <div className="flex flex-col m-auto w-fit mt-10">
+        <Tabs defaultValue="top-posts " className=" text-white">
+          <TabsList className=" flex gap-2 bg-transparent">
+            <TabsTrigger value="top-posts">TopPosts</TabsTrigger>
+            <TabsTrigger value="answers">Answers</TabsTrigger>
+          </TabsList>
+          <TabsContent value="top-posts">TopPosts</TabsContent>
+          <TabsContent value="answers">Answers</TabsContent>
+        </Tabs>
       </div>
     </div>
   );
