@@ -51,8 +51,8 @@ const Votes = ({
           hasUpvoted,
           hasDownVoted,
         });
+        toast.success("Answer Upvoted");
       }
-      toast.success("Answer Upvoted");
     } else if (action === "downvote") {
       if (type === "Question") {
         await downVoteQuestion({
