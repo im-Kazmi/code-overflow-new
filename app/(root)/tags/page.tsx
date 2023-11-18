@@ -1,17 +1,19 @@
 import TagCard from "@/components/home/TagCard";
 import Filter from "@/components/shared/Filter";
+import LocalSearch from "@/components/shared/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
-import Search from "@/components/shared/Search";
 import { userFilters } from "@/constants";
 import { getAllTags } from "@/lib/actions/tag.actions";
 import React from "react";
 
-const Tags = async () => {
-  const tags = await getAllTags();
+const Tags = async ({ searchParams }: any) => {
+  const tags = await getAllTags({
+    searchQuery: searchParams.q,
+  });
   return (
     <div className=" mt-5 flex w-full flex-col">
       <div className="flex w-full gap-3 max-sm:flex-col">
-        <Search placeholder="Search Amazing Minds" />
+        <LocalSearch placeholder="Search Amazing Minds" />
         <Filter filters={userFilters} />
       </div>
       {tags.length > 0 ? (

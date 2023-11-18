@@ -7,6 +7,7 @@ import Question from "../database/question.model";
 import Tag, { ITag } from "../database/tag.model";
 // import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
+import { FilterQuery } from "mongoose";
 
 // interface IgetTopInteractedTags {
 //   userId: String;
@@ -31,11 +32,18 @@ import { connectToDatabase } from "../mongoose";
 //   } catch (error) {}
 // }
 
-export async function getAllTags() {
+export async function getAllTags(params: any) {
   await connectToDatabase();
   try {
-    // const { page = 1, pageSize = 20 } = params;
-    const tags = await Tag.find({}).lean();
+    const { page = 1, pageSize = 20, searchQuery } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.name = { $regex: new RegExp(searchQuery, "i") };
+    }
+
+    const tags = await Tag.find(query).lean();
 
     return tags;
   } catch (error: any) {
@@ -49,13 +57,16 @@ export async function tag(params: any) {
   try {
     const { tagId, page = 1, pageSize = 20, searchQuery } = params;
 
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.title = { $regex: new RegExp(searchQuery, "i") };
+    }
     const questionByTag = await Tag.findOne({ _id: tagId })
       .populate({
         path: "questions",
         model: Question,
-        match: searchQuery
-          ? { title: { $regex: searchQuery, $options: "i" } }
-          : {},
+        match: query,
         options: {
           sort: { createdAt: -1 },
         },

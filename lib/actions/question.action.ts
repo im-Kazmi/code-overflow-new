@@ -15,7 +15,7 @@ import {
 import Answer from "../database/answer.model";
 import Interaction from "../database/interaction.model";
 import { auth } from "@clerk/nextjs";
-
+import { FilterQuery } from "mongoose";
 export async function createQuestion(params: createQuestionParams) {
   try {
     await connectToDatabase();
@@ -50,10 +50,17 @@ export async function createQuestion(params: createQuestionParams) {
   }
 }
 
-export async function getQuestions(params: createQuestionParams) {
+export async function getQuestions(params: any) {
   await connectToDatabase();
   try {
-    const questions = await Question.find()
+    const { searchQuery } = params;
+
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.title = { $regex: new RegExp(searchQuery, "i") };
+    }
+    const questions = await Question.find(query)
       .populate({ path: "author", model: User })
       .populate({ path: "tags", model: Tag });
     return questions;

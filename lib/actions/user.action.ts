@@ -8,6 +8,7 @@ import Question from "../database/question.model";
 import { getAllUsersParams } from "./shared.types";
 import Tag from "../database/tag.model";
 import Answer from "../database/answer.model";
+import { FilterQuery } from "mongoose";
 
 export async function getUserById(params: any) {
   await connectToDatabase();
@@ -75,11 +76,17 @@ export async function deleteUser(params: any) {
 }
 
 // export async function getUsers(params: getAllUsersParams) {
-export async function getUsers() {
+export async function getUsers(params: any) {
   await connectToDatabase();
   try {
-    // const { page = 1, pageSize = 20 } = params;
-    const users = await User.find({}).sort({ createdAt: -1 });
+    const { page = 1, pageSize = 20, searchQuery } = params;
+
+    const query: FilterQuery<typeof User> = {};
+
+    if (searchQuery) {
+      query.name = { $regex: new RegExp(searchQuery, "i") };
+    }
+    const users = await User.find(query).sort({ createdAt: -1 });
 
     return users;
   } catch (error: any) {
@@ -92,12 +99,15 @@ export async function getUserSavedQuestions(params: any) {
   try {
     const { clerkId, page = 1, pageSize = 10, filter, searchQuery } = params;
 
+    const query: FilterQuery<typeof Question> = {};
+
+    if (searchQuery) {
+      query.title = { $regex: new RegExp(searchQuery, "i") };
+    }
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
       model: Question,
-      match: searchQuery
-        ? { title: { regex: new RegExp(searchQuery, "i") } }
-        : {},
+      match: query,
       options: {
         sort: { createdAt: -1 },
       },

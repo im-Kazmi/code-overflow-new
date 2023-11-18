@@ -1,4 +1,3 @@
-import Search from "@/components/shared/Search";
 import Filter from "@/components/shared/Filter";
 import HomeFilter from "@/components/home/HomeFilter";
 import Link from "next/link";
@@ -6,9 +5,12 @@ import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/home/QuestionCard";
 import { getQuestions } from "@/lib/actions/question.action";
 import { filters } from "@/constants";
+import LocalSearch from "@/components/shared/LocalSearch";
 
-export default async function Home() {
-  const questions = await getQuestions({});
+export default async function Home({ searchParams }: any) {
+  const questions = await getQuestions({
+    searchQuery: searchParams.q,
+  });
   return (
     <div className="text-white">
       <div>
@@ -18,13 +20,13 @@ export default async function Home() {
           </h1>
           <Link
             href={"/ask-question"}
-            className=" px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-200 rounded-xl"
+            className=" px-3 py-2 bg-gradient-to-r from-orange-500 to-orange-200 rounded-md"
           >
             Ask a Question
           </Link>
         </div>
         <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
-          <Search placeholder="Search Questions" />
+          <LocalSearch placeholder="Search Questions" />
           <Filter filters={filters} />
         </div>
         <HomeFilter />

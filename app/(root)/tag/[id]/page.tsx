@@ -2,17 +2,23 @@
 import HomeFilter from "@/components/home/HomeFilter";
 import QuestionCard from "@/components/home/QuestionCard";
 import Filter from "@/components/shared/Filter";
+import LocalSearch from "@/components/shared/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
-import Search from "@/components/shared/Search";
 import { filters } from "@/constants";
 import { tag } from "@/lib/actions/tag.actions";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
 
-const Page = async ({ params }: { params: Params }) => {
+const Page = async ({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: any;
+}) => {
   const { id } = params;
 
-  const result = await tag({ tagId: id });
+  const result = await tag({ tagId: id, searchQuery: searchParams.q });
 
   const { questions, name: tagname } = result as any;
   console.log(result);
@@ -30,7 +36,7 @@ const Page = async ({ params }: { params: Params }) => {
         </Link>
       </div>
       <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
-        <Search placeholder="Search Questions" />
+        <LocalSearch placeholder="Search Questions" />
         <Filter filters={filters} />
       </div>
       <HomeFilter />

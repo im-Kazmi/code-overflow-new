@@ -24,7 +24,7 @@ const LeftSidebar = () => {
             <Link
               href={link.route}
               key={link.name}
-              className={`flex py-2 max-lg:w-fit hover:bg-black/40 w-44 px-2 rounded-xl gap-5  items-center ${
+              className={`flex py-2 max-lg:w-fit hover:bg-black/40 w-44 px-2 rounded-md gap-5  items-center ${
                 (pathname.includes(link.route) && link.route.length > 1) ||
                 pathname === link.route
                   ? "bg-gradient-to-r"

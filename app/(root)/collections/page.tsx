@@ -1,4 +1,3 @@
-import Search from "@/components/shared/Search";
 import Filter from "@/components/shared/Filter";
 import HomeFilter from "@/components/home/HomeFilter";
 import Link from "next/link";
@@ -7,13 +6,17 @@ import QuestionCard from "@/components/home/QuestionCard";
 import { filters } from "@/constants";
 import { auth } from "@clerk/nextjs";
 import { getUserSavedQuestions } from "@/lib/actions/user.action";
+import LocalSearch from "@/components/shared/LocalSearch";
 
-export default async function page() {
+export default async function page({ searchParams }: any) {
   const { userId: clerkId } = auth();
 
   if (!clerkId) return null;
 
-  const savedQuestions = await getUserSavedQuestions({ clerkId });
+  const savedQuestions = await getUserSavedQuestions({
+    clerkId,
+    searchQuery: searchParams.q,
+  });
   return (
     <section className="text-white">
       <div>
@@ -29,7 +32,7 @@ export default async function page() {
           </Link>
         </div>
         <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
-          <Search placeholder="Search Questions" />
+          <LocalSearch placeholder="Search Questions" />
           <Filter filters={filters} />
         </div>
         <HomeFilter />
