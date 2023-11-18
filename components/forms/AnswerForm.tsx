@@ -5,7 +5,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
+import toast, { Toaster } from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -42,6 +42,7 @@ const AnswerForm = ({ answersCount, questionId, userId }: Props) => {
         content: values.answer,
         question: JSON.parse(questionId),
       });
+      toast.success("Answer Submitted");
       form.reset();
       if (editorRef.current) {
         const editor = editorRef.current as any;
@@ -53,6 +54,7 @@ const AnswerForm = ({ answersCount, questionId, userId }: Props) => {
   }
   return (
     <div className=" w-full flex flex-col">
+      <Toaster />
       <div className=" flex justify-between mt-5 ">
         <span className=" text-orange-400 my-auto font-bold">
           Write your Answer

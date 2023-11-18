@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { BiUpvote, BiDownvote } from "react-icons/bi";
 import { TbStar, TbStarFilled } from "react-icons/tb";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Props {
   upvotes: number;
@@ -42,6 +43,7 @@ const Votes = ({
           hasUpvoted,
           hasDownVoted,
         });
+        toast.success("Question Upvoted");
       } else if (type === "Answer") {
         await upVoteAnswer({
           answerId: JSON.parse(itemId),
@@ -50,6 +52,7 @@ const Votes = ({
           hasDownVoted,
         });
       }
+      toast.success("Answer Upvoted");
     } else if (action === "downvote") {
       if (type === "Question") {
         await downVoteQuestion({
@@ -58,6 +61,7 @@ const Votes = ({
           hasUpvoted,
           hasDownVoted,
         });
+        toast.success("Question DownVoted");
       } else if (type === "Answer") {
         console.log("hasDownVoted", hasDownVoted);
         console.log("hasDownVoted", hasUpvoted);
@@ -67,6 +71,7 @@ const Votes = ({
           hasUpvoted,
           hasDownVoted,
         });
+        toast.success("Answer DownVoted");
       }
     }
   };
@@ -76,6 +81,11 @@ const Votes = ({
         questionId: JSON.parse(itemId),
         userId: JSON.parse(userId),
       });
+      if (hasSaved) {
+        toast.success("Question removed from collection");
+      } else {
+        toast.success("Question Saved to Collection");
+      }
     } catch (error) {}
   };
 
@@ -89,6 +99,7 @@ const Votes = ({
 
   return (
     <div className=" flex  w-full gap-4 max-sm:hidden">
+      <Toaster />
       <div className="  flex gap-1 ">
         {hasUpvoted ? (
           <div className=" text-green-400 font-bold  my-auto">

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 "use client";
 import React, { useRef } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Editor } from "@tinymce/tinymce-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +45,7 @@ const Question = ({ mongoUserId }: { mongoUserId: string }) => {
         author: JSON.parse(mongoUserId),
         path: "/",
       });
-
+      toast.success("Question created Succesfully");
       router.push("/");
     } catch (error) {}
   }
@@ -81,6 +82,7 @@ const Question = ({ mongoUserId }: { mongoUserId: string }) => {
   };
   return (
     <Form {...form}>
+      <Toaster />
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col w-full  gap-10 mt-10"
