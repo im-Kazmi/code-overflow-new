@@ -13,7 +13,7 @@ const QuestionsTab = async ({ searchParams, clerkId, userId }: Props) => {
   });
 
   return (
-    <div>
+    <div className=" flex flex-col gap-2">
       {userQuestions &&
         userQuestions?.map((question) => (
           <QuestionCard

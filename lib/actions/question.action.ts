@@ -203,3 +203,17 @@ export async function deleteQuestion(params: any) {
     revalidatePath(path);
   } catch (error) {}
 }
+
+export async function getHotQuestions() {
+  await connectToDatabase();
+  try {
+    const hotQuestions = await Question.find()
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .limit(5);
+
+    return hotQuestions;
+  } catch (error) {}
+}

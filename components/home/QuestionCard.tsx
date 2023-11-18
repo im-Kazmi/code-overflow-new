@@ -93,7 +93,7 @@ const QuestionCard = ({
               <BiSolidMessageAltDetail /> {answers && answers.length} answers
             </span>
             <span className=" text-sm my-auto flex gap-2 cursor-pointer">
-              <AiOutlineEye /> {views?.length} views
+              <AiOutlineEye /> {views} views
             </span>
           </div>
         </div>

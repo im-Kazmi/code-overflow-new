@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-"use client";
-import { hotQuestions, links, popularTags } from "@/constants";
+import { popularTags } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BiSolidChevronRight } from "react-icons/bi";
 import React from "react";
 import RenderTag from "./RenderTag";
+import { getHotQuestions } from "@/lib/actions/question.action";
 
-const RightSidebar = () => {
-  const pathname = usePathname();
+const RightSidebar = async () => {
+  const hotQuestions = await getHotQuestions();
 
   return (
     <div className="sticky flex max-xl:hidden flex-col w-64 min-h-screen  bg-black/20">
@@ -16,7 +16,7 @@ const RightSidebar = () => {
         <div className="flex flex-col ">
           <h1 className=" font-bold text-white">Top Questions</h1>
           <div className=" flex flex-col gap-1 mt-5">
-            {hotQuestions.map((question) => (
+            {hotQuestions.map((question: any) => (
               <Link
                 href={"/"}
                 key={question.id}
