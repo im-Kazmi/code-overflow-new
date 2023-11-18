@@ -63,8 +63,6 @@ const Votes = ({
         });
         toast.success("Question DownVoted");
       } else if (type === "Answer") {
-        console.log("hasDownVoted", hasDownVoted);
-        console.log("hasDownVoted", hasUpvoted);
         await downVoteAnswer({
           answerId: JSON.parse(itemId),
           userId: JSON.parse(userId),

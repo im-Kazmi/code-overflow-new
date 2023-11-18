@@ -27,7 +27,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
   }
 
   const question = await getQuestionById({ id });
-  const answers = await getAllAnswers({ questionId: question._id });
+  const answers = await getAllAnswers({ questionId: question?._id });
 
   return (
     <div className="flex flex-col w-full mt-5">

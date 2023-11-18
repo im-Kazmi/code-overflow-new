@@ -4,8 +4,9 @@ import AnswerCard from "./AnswerCard";
 
 interface Props {
   userId: string;
+  clerkId: string | null;
 }
-const AnswerTab = async ({ userId }: Props) => {
+const AnswerTab = async ({ userId, clerkId }: Props) => {
   const userAnswers = await getUserAnswers({
     userId,
   });
@@ -21,6 +22,7 @@ const AnswerTab = async ({ userId }: Props) => {
             createdAt={answer.createdAt}
             author={answer.author}
             question={answer.question}
+            clerkId={clerkId}
           />
         ))}
       <div></div>

@@ -9,6 +9,7 @@ import { SignedIn, auth } from "@clerk/nextjs";
 import { FaTrash } from "react-icons/fa";
 import { deleteQuestion } from "@/lib/actions/question.action";
 import Modal from "../shared/Modal";
+import EditDeleteAction from "../shared/EditDeleteAction";
 
 interface QuestionProps {
   _id: string;
@@ -42,13 +43,6 @@ const QuestionCard = ({
 }: QuestionProps) => {
   const { userId } = auth();
   const showActionButtons = userId && userId === author?.clerkId;
-
-  const handleQuestionDelete = async () => {
-    await deleteQuestion({
-      questionId: JSON.parse(_id),
-      revalidatePath: "/",
-    });
-  };
   return (
     <Link
       href={`/question/${_id}`}
@@ -59,10 +53,11 @@ const QuestionCard = ({
           <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>
           <SignedIn>
             {showActionButtons && (
-              <div className=" text-red-500 my-auto">
-                <Modal trigger={<FaTrash />} title="Are you sure?">
-                  <button className=" w-fit rounded-lg"></button>
-                </Modal>
+              <div className=" ">
+                <EditDeleteAction
+                  type="Question"
+                  itemId={JSON.stringify(_id)}
+                />
               </div>
             )}
           </SignedIn>

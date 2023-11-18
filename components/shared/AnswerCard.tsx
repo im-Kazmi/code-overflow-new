@@ -2,6 +2,8 @@ import React from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import Image from "next/image";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
+import EditDeleteAction from "./EditDeleteAction";
 
 interface QuestionProps {
   _id: string;
@@ -9,10 +11,12 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string;
   };
   question: any;
   upvotes: number;
   createdAt: Date;
+  clerkId: string | null;
 }
 const AnswerCard = ({
   _id,
@@ -20,7 +24,10 @@ const AnswerCard = ({
   upvotes,
   createdAt,
   question,
+  clerkId,
 }: QuestionProps) => {
+  const showActionButtons = clerkId && clerkId === author?.clerkId;
+
   return (
     <Link
       href={`/question/${question._id}`}
@@ -46,6 +53,13 @@ const AnswerCard = ({
               <AiOutlineLike /> {upvotes} votes
             </span>
           </div>
+          <SignedIn>
+            {showActionButtons && (
+              <div className=" ">
+                <EditDeleteAction type="Answer" itemId={JSON.stringify(_id)} />
+              </div>
+            )}
+          </SignedIn>
         </div>
       </div>
     </Link>

@@ -65,7 +65,7 @@ const Page = async ({
             />
           </TabsContent>
           <TabsContent value="answers">
-            <AnswersTab userId={user._id} />
+            <AnswersTab userId={user._id} clerkId={userId} />
           </TabsContent>
         </Tabs>
       </div>
