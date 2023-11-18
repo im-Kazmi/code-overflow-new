@@ -10,7 +10,7 @@ import { filters } from "@/constants";
 export default async function Home() {
   const questions = await getQuestions({});
   return (
-    <main className="text-white">
+    <div className="text-white">
       <div>
         <div className=" flex justify-between">
           <h1 className=" text-2xl font-bold first-letter:text-orange-400">
@@ -53,6 +53,6 @@ export default async function Home() {
           )}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

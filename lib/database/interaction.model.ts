@@ -14,7 +14,7 @@ const interactionSchema = new Schema(
     user: { type: Schema.Types.ObjectId, ref: "User" },
     action: { type: String, required: true },
     question: { type: Schema.Types.ObjectId, ref: "Question" },
-    answers: { type: Schema.Types.ObjectId, ref: "Answer" },
+    answer: { type: Schema.Types.ObjectId, ref: "Answer" },
     tags: [{ type: Schema.Types.ObjectId, ref: "Tag" }],
   },
   { timestamps: true }

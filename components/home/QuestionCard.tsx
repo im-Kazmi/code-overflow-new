@@ -1,10 +1,14 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
 import RenderTag from "../shared/RenderTag";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import { SignedIn, auth } from "@clerk/nextjs";
+import { FaTrash } from "react-icons/fa";
+import { deleteQuestion } from "@/lib/actions/question.action";
+import Modal from "../shared/Modal";
 
 interface QuestionProps {
   _id: string;
@@ -17,6 +21,7 @@ interface QuestionProps {
     _id: string;
     name: string;
     picture: string;
+    clerkId: string;
   };
   upvotes: string[] | Array<object>;
   views: number[];
@@ -35,14 +40,33 @@ const QuestionCard = ({
   createdAt,
   isProfile = false,
 }: QuestionProps) => {
+  const { userId } = auth();
+  const showActionButtons = userId && userId === author?.clerkId;
+
+  const handleQuestionDelete = async () => {
+    await deleteQuestion({
+      questionId: JSON.parse(_id),
+      revalidatePath: "/",
+    });
+  };
   return (
     <Link
       href={`/question/${_id}`}
       className=" cursor-pointer w-full p-5 text-white bg-black/40 rounded-lg flex flex-col"
     >
       <div className=" w-full flex-col">
-        <span className="hidden max-sm:flex text-sm">2 days ago</span>
-        <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>
+        <div className=" flex justify-between">
+          <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>
+          <SignedIn>
+            {showActionButtons && (
+              <div className=" text-red-500 my-auto">
+                <Modal trigger={<FaTrash />} title="Are you sure?">
+                  <button className=" w-fit rounded-lg"></button>
+                </Modal>
+              </div>
+            )}
+          </SignedIn>
+        </div>
         <div className=" flex gap-3 mt-4">
           {tags.map((tag) => (
             <RenderTag _id={tag._id} key={tag._id} name={tag.name} />

@@ -13,6 +13,8 @@ import {
   getQuestionsParams,
 } from "./shared.types";
 import Answer from "../database/answer.model";
+import Interaction from "../database/interaction.model";
+import { auth } from "@clerk/nextjs";
 
 export async function createQuestion(params: createQuestionParams) {
   try {
@@ -179,4 +181,25 @@ export async function saveQuestion(params: any) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function deleteQuestion(params: any) {
+  try {
+    await connectToDatabase();
+
+    const { questionId, revalidatePath } = params;
+
+    const { userId } = auth();
+
+    await Question.deleteOne({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+    await User.updateOne({ clerkId: userId }, { $pull: { saved: questionId } });
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } }
+    );
+
+    revalidatePath(revalidatePath);
+  } catch (error) {}
 }

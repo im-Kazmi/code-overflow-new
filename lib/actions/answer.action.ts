@@ -97,3 +97,17 @@ export async function downVoteAnswer(params: any) {
     console.log(error);
   }
 }
+
+export async function deleteAnswer(params: any) {
+  try {
+    await connectToDatabase();
+
+    const { answerId, revalidatePath } = params;
+
+    const answer = await Answer.findById(answerId);
+    await Question.updateMany({ _id: answer.question });
+    await Answer.deleteOne({ _id: answer._id });
+
+    revalidatePath(revalidatePath);
+  } catch (error) {}
+}
