@@ -34,22 +34,22 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
       <div className="flex justify-between w-full">
         <div className=" flex gap-3">
           <Image
-            src={question.author.picture}
+            src={question?.author?.picture}
             width={40}
             height={40}
-            alt={question.author.name}
+            alt={question?.author?.name}
             className=" rounded-full"
           />
           <h1 className=" text-neutral-300 my-auto font-semibold">
-            {question.author.name}
+            {question?.author?.name}
           </h1>
         </div>
         <div>
           <Votes
-            upvotes={question.upvotes?.length}
-            downVotes={question.downVotes?.length}
-            hasUpvoted={question.upvotes?.includes(mongoUser?._id)}
-            hasDownVoted={question.downVotes?.includes(mongoUser?._id)}
+            upvotes={question?.upvotes.length}
+            downVotes={question?.downVotes.length}
+            hasUpvoted={question?.upvotes.includes(mongoUser?._id)}
+            hasDownVoted={question?.downVotes.includes(mongoUser?._id)}
             hasSaved={mongoUser?.saved.includes(question._id)}
             userId={JSON.stringify(mongoUser?._id)}
             itemId={JSON.stringify(question._id)}

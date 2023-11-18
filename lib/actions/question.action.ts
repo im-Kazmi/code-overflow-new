@@ -187,7 +187,7 @@ export async function deleteQuestion(params: any) {
   try {
     await connectToDatabase();
 
-    const { questionId, revalidatePath } = params;
+    const { questionId, path } = params;
 
     const { userId } = auth();
 
@@ -200,6 +200,6 @@ export async function deleteQuestion(params: any) {
       { $pull: { questions: questionId } }
     );
 
-    revalidatePath(revalidatePath);
+    revalidatePath(path);
   } catch (error) {}
 }

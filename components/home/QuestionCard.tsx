@@ -44,13 +44,15 @@ const QuestionCard = ({
   const { userId } = auth();
   const showActionButtons = userId && userId === author?.clerkId;
   return (
-    <Link
-      href={`/question/${_id}`}
-      className=" cursor-pointer w-full p-5 text-white bg-black/40 rounded-lg flex flex-col"
-    >
+    <div className=" cursor-pointer w-full p-5 text-white bg-black/40 rounded-lg flex flex-col">
       <div className=" w-full flex-col">
         <div className=" flex justify-between">
-          <h1 className=" text-xl font-bold  text-neutral-400">{title}</h1>
+          <Link
+            href={`/question/${_id}`}
+            className=" text-xl font-bold  text-neutral-400"
+          >
+            {title}
+          </Link>
           <SignedIn>
             {showActionButtons && (
               <div className=" ">
@@ -76,8 +78,12 @@ const QuestionCard = ({
               alt={author.name}
               className=" rounded-full"
             />
-            <h1 className="">{author.name}</h1>
-            {!isProfile && <span>{moment(createdAt).fromNow()}</span>}
+            <h1 className=" my-auto">{author.name}</h1>
+            {!isProfile && (
+              <span className=" text-xs my-auto text-orange-500 ml-3">
+                {moment(createdAt).fromNow()}
+              </span>
+            )}
           </div>
           <div className=" flex gap-3  max-sm:mt-4 ">
             <span className=" text-sm my-auto flex gap-2 cursor-pointer">
@@ -92,7 +98,7 @@ const QuestionCard = ({
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
