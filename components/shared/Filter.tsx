@@ -1,5 +1,4 @@
 "use client";
-import * as React from "react";
 
 import {
   Select,
@@ -10,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 interface FilterProps {
   filters: {
@@ -20,9 +20,21 @@ interface FilterProps {
 }
 
 const Filter = ({ filters }: FilterProps) => {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleFilterClick = (item: string) => {
+    if (item.toLowerCase() === searchParams.get("filter")?.toString()) return;
+    router.push(`${pathname}?filter=${item.toLowerCase()}`, { scroll: false });
+  };
+
+  const handleFilterChange = (selectedValue: string) => {
+    handleFilterClick(selectedValue);
+  };
   return (
     <div className=" max-sm:flex">
-      <Select>
+      <Select onValueChange={handleFilterChange}>
         <SelectTrigger className="w-[180px]  text-white border-none shadow-lg my-auto bg-black/40 outline-none h-14 focus:border-none">
           <SelectValue placeholder="Select a Filter" className="" />
         </SelectTrigger>

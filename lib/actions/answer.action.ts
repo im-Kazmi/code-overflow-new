@@ -28,11 +28,29 @@ export async function createAnswer(params: any) {
 export async function getAllAnswers(params: any) {
   try {
     await connectToDatabase();
-    const { questionId } = params;
+    const { questionId, filter } = params;
 
+    let sortOptions = {};
+
+    switch (filter) {
+      case "highest_upvotes":
+        sortOptions = { upvotes: -1 };
+        break;
+      case "lowest_upvotes":
+        sortOptions = { downvotes: -1 };
+        break;
+      case "most_recent":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "Oldest":
+        sortOptions = { createdAt: 1 };
+        break;
+      default:
+        break;
+    }
     const answers = await Answer.find({ question: questionId })
       .populate("author", "_id clerkId name picture ")
-      .sort({ createdAt: -1 })
+      .sort(sortOptions)
       .lean();
 
     return answers;

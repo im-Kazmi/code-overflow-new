@@ -10,13 +10,19 @@ import Image from "next/image";
 import React from "react";
 import { AiOutlineLike, AiOutlineEye } from "react-icons/ai";
 import { BiSolidMessageAltDetail } from "react-icons/bi";
-import { userFilters } from "@/constants";
+import { answerFilters } from "@/constants";
 import Filter from "@/components/shared/Filter";
 import { getAllAnswers } from "@/lib/actions/answer.action";
 import moment from "moment";
 import Votes from "@/components/shared/Votes";
 
-const QuestionDetail = async ({ params }: { params: Params }) => {
+const QuestionDetail = async ({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: any;
+}) => {
   const { id } = params;
   const { userId: clerkId } = auth();
 
@@ -27,7 +33,10 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
   }
 
   const question = await getQuestionById({ id });
-  const answers = await getAllAnswers({ questionId: question?._id });
+  const answers = await getAllAnswers({
+    questionId: question?._id,
+    filter: searchParams.filter,
+  });
 
   return (
     <div className="flex flex-col w-full mt-5">
@@ -93,7 +102,7 @@ const QuestionDetail = async ({ params }: { params: Params }) => {
         <span className=" text-orange-400 flex my-auto font-bold">
           {question?.answers.length} Answers
         </span>
-        <Filter filters={userFilters} />
+        <Filter filters={answerFilters} />
       </div>
       <div className=" mt-5 flex flex-col">
         <AllAnswers answers={answers} userId={mongoUser?._id} />

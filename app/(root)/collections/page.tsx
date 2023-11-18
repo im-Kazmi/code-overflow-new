@@ -3,7 +3,7 @@ import HomeFilter from "@/components/home/HomeFilter";
 import Link from "next/link";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/home/QuestionCard";
-import { filters } from "@/constants";
+import { collectionFilters } from "@/constants";
 import { auth } from "@clerk/nextjs";
 import { getUserSavedQuestions } from "@/lib/actions/user.action";
 import LocalSearch from "@/components/shared/LocalSearch";
@@ -16,6 +16,7 @@ export default async function page({ searchParams }: any) {
   const savedQuestions = await getUserSavedQuestions({
     clerkId,
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
   return (
     <section className="text-white">
@@ -33,7 +34,7 @@ export default async function page({ searchParams }: any) {
         </div>
         <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
           <LocalSearch placeholder="Search Questions" />
-          <Filter filters={filters} />
+          <Filter filters={collectionFilters} />
         </div>
         <HomeFilter />
 

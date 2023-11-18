@@ -68,48 +68,37 @@ export const hotQuestions = [
   },
 ];
 
-export const popularTags = [
-  {
-    _id: "1",
-    name: "Next",
-    totalQuestions: 15,
-    textColor: "text-cyan-300",
-  },
-  {
-    _id: "2",
-    totalQuestions: 12,
-    name: "Node",
-    textColor: "text-orange-300",
-  },
-  {
-    _id: "3",
-    totalQuestions: 10,
-    name: "React",
-    textColor: "text-green-300",
-  },
-  {
-    _id: "4",
-    name: "Javascript",
-    totalQuestions: 8,
-    textColor: "text-rose-300",
-  },
-  {
-    _id: "5",
-    name: "Redux",
-    totalQuestions: 1,
-    textColor: "text-pink-300",
-  },
-];
-
 export const filters = [
   { id: "1", name: "Newest", value: "newest" },
+  { id: "5", name: "Oldest", value: "oldest" },
   { id: "2", name: "Recommended", value: "recommended" },
   { id: "3", name: "Frequent", value: "frequent" },
   { id: "4", name: "UnAnswered", value: "unanswered" },
 ];
 
+export const tagFilters = [
+  { id: "1", name: "Popular", value: "popular" },
+  { id: "2", name: "Recent", value: "Recent" },
+  { id: "3", name: "Name", value: "name" },
+  { id: "4", name: "Oldest", value: "old" },
+];
+
+export const answerFilters = [
+  { id: "1", name: "Highest Upvotes", value: "highest_upvotes" },
+  { id: "2", name: "Lowest Upvotes", value: "lowest_upvotes" },
+  { id: "3", name: "Most Recent", value: "most_recent" },
+  { id: "4", name: "Oldest", value: "Oldest" },
+];
+export const collectionFilters = [
+  { id: "1", name: "Most Recent", value: "most_recent" },
+  { id: "5", name: "Oldest", value: "oldest" },
+  { id: "2", name: "Most Voted", value: "most_voted" },
+  { id: "3", name: "Most Viewed", value: "most_viewed" },
+  { id: "4", name: "Most Answered", value: "most_answered" },
+];
+
 export const userFilters = [
-  { id: "1", name: "New Users", value: "new users" },
-  { id: "2", name: "Old Users", value: "old users" },
-  { id: "3", name: "Top contributors", value: "top contributors" },
+  { id: "1", name: "New Users", value: "new_users" },
+  { id: "2", name: "Old Users", value: "old_users" },
+  { id: "3", name: "Top contributors", value: "top_contributors" },
 ];

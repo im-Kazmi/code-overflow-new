@@ -8,6 +8,7 @@ import React from "react";
 const Community = async ({ searchParams }: any) => {
   const users = await getUsers({
     searchQuery: searchParams.q,
+    filter: searchParams.filter,
   });
   return (
     <div className=" mt-5 flex w-full flex-col">

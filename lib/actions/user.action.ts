@@ -79,14 +79,30 @@ export async function deleteUser(params: any) {
 export async function getUsers(params: any) {
   await connectToDatabase();
   try {
-    const { page = 1, pageSize = 20, searchQuery } = params;
+    const { page = 1, pageSize = 20, searchQuery, filter } = params;
 
     const query: FilterQuery<typeof User> = {};
 
     if (searchQuery) {
       query.name = { $regex: new RegExp(searchQuery, "i") };
     }
-    const users = await User.find(query).sort({ createdAt: -1 });
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "new_users":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "old_users":
+        sortOptions = { createdAt: 1 };
+        break;
+      case "top_contributors":
+        sortOptions = { reputation: -1 };
+        break;
+      default:
+        break;
+    }
+    const users = await User.find(query).sort(sortOptions);
 
     return users;
   } catch (error: any) {
@@ -104,12 +120,35 @@ export async function getUserSavedQuestions(params: any) {
     if (searchQuery) {
       query.title = { $regex: new RegExp(searchQuery, "i") };
     }
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "most_recent":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "oldest":
+        sortOptions = { createdAt: 1 };
+        break;
+      case "most_voted":
+        sortOptions = { votes: -1 };
+        break;
+      case "most_viewed":
+        sortOptions = { views: -1 };
+        break;
+      case "most_answered":
+        sortOptions = { answers: -1 };
+        break;
+
+      default:
+        break;
+    }
     const user = await User.findOne({ clerkId }).populate({
       path: "saved",
       model: Question,
       match: query,
       options: {
-        sort: { createdAt: -1 },
+        sort: sortOptions,
       },
       populate: [
         { path: "tags", model: Tag, select: " _id name" },

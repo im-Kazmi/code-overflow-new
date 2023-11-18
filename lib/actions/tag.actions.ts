@@ -35,7 +35,7 @@ import { FilterQuery } from "mongoose";
 export async function getAllTags(params: any) {
   await connectToDatabase();
   try {
-    const { page = 1, pageSize = 20, searchQuery } = params;
+    const { page = 1, pageSize = 20, searchQuery, filter } = params;
 
     const query: FilterQuery<typeof Question> = {};
 
@@ -43,7 +43,25 @@ export async function getAllTags(params: any) {
       query.name = { $regex: new RegExp(searchQuery, "i") };
     }
 
-    const tags = await Tag.find(query).lean();
+    let sortOptions = {};
+
+    switch (filter) {
+      case "popular":
+        sortOptions = { questions: -1 };
+        break;
+      case "recent":
+        sortOptions = { createdAt: -1 };
+        break;
+      case "name":
+        sortOptions = { name: 1 };
+        break;
+      case "old":
+        sortOptions = { createdAt: 1 };
+        break;
+      default:
+        break;
+    }
+    const tags = await Tag.find(query).sort(sortOptions).lean();
 
     return tags;
   } catch (error: any) {

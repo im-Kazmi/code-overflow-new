@@ -10,6 +10,7 @@ import LocalSearch from "@/components/shared/LocalSearch";
 export default async function Home({ searchParams }: any) {
   const questions = await getQuestions({
     searchQuery: searchParams.q,
+    filters: searchParams.filter,
   });
   return (
     <div className="text-white">
