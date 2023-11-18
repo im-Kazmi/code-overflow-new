@@ -82,3 +82,17 @@ export async function tag(params: any) {
     throw error;
   }
 }
+
+export async function getPopularTags() {
+  await connectToDatabase();
+  try {
+    const hotQuestions = await Tag.find()
+      .sort({
+        questions: -1,
+        followers: -1,
+      })
+      .limit(5);
+
+    return hotQuestions;
+  } catch (error) {}
+}
