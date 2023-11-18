@@ -1,16 +1,16 @@
-import Filter from "@/components/shared/Filter";
 import HomeFilter from "@/components/home/HomeFilter";
 import Link from "next/link";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/home/QuestionCard";
 import { getQuestions } from "@/lib/actions/question.action";
-import { filters } from "@/constants";
 import LocalSearch from "@/components/shared/LocalSearch";
+import Pagination from "@/components/shared/Pagination";
 
 export default async function Home({ searchParams }: any) {
-  const questions = await getQuestions({
+  const { questions, isNext } = await getQuestions({
     searchQuery: searchParams.q,
     filters: searchParams.filter,
+    page: searchParams?.page ? +searchParams.page : 1,
   });
   return (
     <div className="text-white">
@@ -28,7 +28,6 @@ export default async function Home({ searchParams }: any) {
         </div>
         <div className="flex w-full mt-5 gap-3 max-sm:flex-col">
           <LocalSearch placeholder="Search Questions" />
-          <Filter filters={filters} />
         </div>
         <HomeFilter />
 
@@ -56,6 +55,10 @@ export default async function Home({ searchParams }: any) {
           )}
         </div>
       </div>
+      <Pagination
+        pageNumber={searchParams?.page ? +searchParams?.page : 1}
+        isNext={isNext}
+      />
     </div>
   );
 }

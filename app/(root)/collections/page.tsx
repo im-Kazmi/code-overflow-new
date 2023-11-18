@@ -1,5 +1,4 @@
 import Filter from "@/components/shared/Filter";
-import HomeFilter from "@/components/home/HomeFilter";
 import Link from "next/link";
 import NoResult from "@/components/shared/NoResult";
 import QuestionCard from "@/components/home/QuestionCard";
@@ -36,8 +35,6 @@ export default async function page({ searchParams }: any) {
           <LocalSearch placeholder="Search Questions" />
           <Filter filters={collectionFilters} />
         </div>
-        <HomeFilter />
-
         <div className=" mt-10 flex flex-col gap-10">
           {savedQuestions && savedQuestions?.length > 0 ? (
             savedQuestions?.map((question: any) => (

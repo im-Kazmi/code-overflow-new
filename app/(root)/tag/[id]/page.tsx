@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import HomeFilter from "@/components/home/HomeFilter";
 import QuestionCard from "@/components/home/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/LocalSearch";
@@ -39,8 +38,6 @@ const Page = async ({
         <LocalSearch placeholder="Search Questions" />
         <Filter filters={filters} />
       </div>
-      <HomeFilter />
-
       <div className=" mt-10 flex flex-col gap-10">
         {questions && questions?.length > 0 ? (
           questions?.map((question: any) => (
