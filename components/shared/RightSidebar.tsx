@@ -16,19 +16,21 @@ const RightSidebar = async () => {
         <div className="flex flex-col ">
           <h1 className=" font-bold text-white">Top Questions</h1>
           <div className=" flex flex-col gap-1 mt-5">
-            {hotQuestions.map((question: any) => (
-              <Link
-                href={"/"}
-                key={question.id}
-                className="flex w-full cursor-pointer
+            {hotQuestions &&
+              hotQuestions?.length > 0 &&
+              hotQuestions.map((question: any) => (
+                <Link
+                  href={"/"}
+                  key={question.id}
+                  className="flex w-full cursor-pointer
               gap-7 px-1 py-1 rounded-md hover:bg-black/50"
-              >
-                <p className=" text-white text-sm">{question.title}</p>
-                {/* <span className=" text-white">
+                >
+                  <p className=" text-white text-sm">{question.title}</p>
+                  {/* <span className=" text-white">
                   <BiSolidChevronRight />
                 </span> */}
-              </Link>
-            ))}
+                </Link>
+              ))}
           </div>
         </div>
         <div className="flex flex-col mt-5">
