@@ -2,14 +2,16 @@ import TagCard from "@/components/home/TagCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
+import Pagination from "@/components/shared/Pagination";
 import { tagFilters } from "@/constants";
 import { getAllTags } from "@/lib/actions/tag.actions";
 import React from "react";
 
 const Tags = async ({ searchParams }: any) => {
-  const tags = await getAllTags({
+  const { tags, isNext } = await getAllTags({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams?.page ? +searchParams.page : 1,
   });
   return (
     <div className=" mt-5 flex w-full flex-col">
@@ -30,6 +32,11 @@ const Tags = async ({ searchParams }: any) => {
           link="/tag/create"
         />
       )}
+
+      <Pagination
+        isNext={isNext}
+        pageNumber={searchParams?.page ? +searchParams?.page : 1}
+      />
     </div>
   );
 };

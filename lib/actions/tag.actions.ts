@@ -35,8 +35,9 @@ import { FilterQuery } from "mongoose";
 export async function getAllTags(params: any) {
   await connectToDatabase();
   try {
-    const { page = 1, pageSize = 20, searchQuery, filter } = params;
+    const { page = 1, pageSize = 10, searchQuery, filter } = params;
 
+    const skipLimit = (page - 1) * pageSize;
     const query: FilterQuery<typeof Question> = {};
 
     if (searchQuery) {
@@ -61,9 +62,15 @@ export async function getAllTags(params: any) {
       default:
         break;
     }
-    const tags = await Tag.find(query).sort(sortOptions).lean();
+    const tags = await Tag.find(query)
+      .sort(sortOptions)
+      .skip(skipLimit)
+      .limit(pageSize)
+      .lean();
 
-    return tags;
+    const totalTags = await Tag.countDocuments();
+    const isNext = totalTags > skipLimit + tags.length;
+    return { tags, isNext };
   } catch (error: any) {
     console.log(error.message);
     throw error;
