@@ -8,6 +8,8 @@ import moment from "moment";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
 import Link from "next/link";
+import { CiLink } from "react-icons/ci";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Page = async ({
   params,
@@ -32,11 +34,21 @@ const Page = async ({
         />
         <div className="flex flex-col m-auto gap-1 w-fit  ">
           <h1 className=" text-xl m-auto  font-bold text-white">{user.name}</h1>
-          <span className="text-xs m-auto  text-white">@{user.username}</span>
+          <span className="text-xs m-auto flex gap-1  text-white">
+            <FaLocationDot />
+            {user.location}
+          </span>
+          <Link
+            href={user?.portfolioWebsite}
+            className="text-xs m-auto flex gap-2 text-blue-500"
+          >
+            <CiLink />
+            portfolio
+          </Link>
           {id === userId && (
             <Link
               href={`/profile/edit`}
-              className=" px-3 py-2 rounded-md bg-black/40 text-orange-500"
+              className=" px-3 py-2 mt-3 text-center rounded-md bg-black/40 text-orange-500"
             >
               Edit Profile
             </Link>
