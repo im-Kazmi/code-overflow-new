@@ -35,7 +35,7 @@ import { FilterQuery } from "mongoose";
 export async function getAllTags(params: any) {
   await connectToDatabase();
   try {
-    const { page = 1, pageSize = 10, searchQuery, filter } = params;
+    const { page = 1, pageSize = 12, searchQuery, filter } = params;
 
     const skipLimit = (page - 1) * pageSize;
     const query: FilterQuery<typeof Question> = {};
@@ -80,7 +80,9 @@ export async function getAllTags(params: any) {
 export async function tag(params: any) {
   await connectToDatabase();
   try {
-    const { tagId, page = 1, pageSize = 20, searchQuery } = params;
+    const { tagId, page = 1, pageSize = 1, searchQuery } = params;
+
+    const skipLimit = (page - 1) * pageSize;
 
     const query: FilterQuery<typeof Question> = {};
 
@@ -94,6 +96,8 @@ export async function tag(params: any) {
         match: query,
         options: {
           sort: { createdAt: -1 },
+          skip: skipLimit,
+          limit: pageSize,
         },
         populate: [
           {
@@ -112,7 +116,8 @@ export async function tag(params: any) {
       .populate("questions.tags")
       .lean();
 
-    return questionByTag;
+    const isNext = questionByTag.questions.length > skipLimit;
+    return { questionByTag, isNext };
   } catch (error: any) {
     console.log(error.message);
     throw error;

@@ -3,6 +3,7 @@ import QuestionCard from "@/components/home/QuestionCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/LocalSearch";
 import NoResult from "@/components/shared/NoResult";
+import Pagination from "@/components/shared/Pagination";
 import { filters } from "@/constants";
 import { tag } from "@/lib/actions/tag.actions";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -17,15 +18,17 @@ const Page = async ({
 }) => {
   const { id } = params;
 
-  const result = await tag({ tagId: id, searchQuery: searchParams.q });
+  const { questionByTag, isNext } = await tag({
+    tagId: id,
+    searchQuery: searchParams.q,
+    page: searchParams.page ? +searchParams.page : 1,
+  });
 
-  const { questions, name: tagname } = result as any;
-  console.log(result);
   return (
     <div>
       <div className=" flex justify-between text-white">
         <h1 className=" text-2xl font-bold first-letter:text-orange-400">
-          {tagname}
+          {questionByTag.name}
         </h1>
         <Link
           href={"/ask-question"}
@@ -39,8 +42,8 @@ const Page = async ({
         <Filter filters={filters} />
       </div>
       <div className=" mt-10 flex flex-col gap-10">
-        {questions && questions?.length > 0 ? (
-          questions?.map((question: any) => (
+        {questionByTag && questionByTag?.questions?.length > 0 ? (
+          questionByTag?.questions?.map((question: any) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
@@ -61,6 +64,10 @@ const Page = async ({
           />
         )}
       </div>
+      <Pagination
+        isNext={isNext}
+        pageNumber={searchParams.page ? +searchParams.page : 1}
+      />
     </div>
   );
 };

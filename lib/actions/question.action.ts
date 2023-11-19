@@ -16,6 +16,7 @@ import Answer from "../database/answer.model";
 import Interaction from "../database/interaction.model";
 import { auth } from "@clerk/nextjs";
 import { FilterQuery } from "mongoose";
+
 export async function createQuestion(params: createQuestionParams) {
   try {
     await connectToDatabase();

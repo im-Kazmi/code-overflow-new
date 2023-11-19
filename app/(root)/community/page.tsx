@@ -1,14 +1,16 @@
 import UserCard from "@/components/home/UserCard";
 import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/LocalSearch";
+import Pagination from "@/components/shared/Pagination";
 import { userFilters } from "@/constants";
 import { getUsers } from "@/lib/actions/user.action";
 import React from "react";
 
 const Community = async ({ searchParams }: any) => {
-  const users = await getUsers({
+  const { users, isNext } = await getUsers({
     searchQuery: searchParams.q,
     filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
   });
   return (
     <div className=" mt-5 flex w-full flex-col">
@@ -21,6 +23,10 @@ const Community = async ({ searchParams }: any) => {
           <UserCard key={user._id} user={user} />
         ))}
       </div>
+      <Pagination
+        isNext={isNext}
+        pageNumber={searchParams.page ? +searchParams.page : 1}
+      />
     </div>
   );
 };
