@@ -9,10 +9,15 @@ import { BsTag } from "react-icons/bs";
 import GlobalFilters from "./GlobalFilters";
 import { globalSearch } from "@/lib/actions/general.action";
 
+interface IResultItem {
+  title?: string;
+  id?: string;
+  type?: string;
+}
 const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState(Array<IResultItem>);
   const searchParams = useSearchParams();
   const global = searchParams.get("global")?.toString() as string;
   const type = searchParams.get("type")?.toString() as string;
