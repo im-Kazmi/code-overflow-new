@@ -24,13 +24,7 @@ import { getUserById, updateUser } from "@/lib/actions/user.action";
 import { Input } from "../ui/input";
 import { usePathname, useRouter } from "next/navigation";
 
-interface User {
-  name: string;
-  bio: string;
-  location: string;
-  portfolioWebsite: string;
-}
-const EditProfile = ({ user, clerkId }: { user: User; clerkId: any }) => {
+const EditProfile = ({ user, clerkId }: { user: any; clerkId: any }) => {
   const pathname = usePathname();
   const router = useRouter();
   const userData = JSON.parse(user);
