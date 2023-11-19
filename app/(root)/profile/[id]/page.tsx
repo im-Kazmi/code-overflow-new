@@ -7,6 +7,7 @@ import { auth } from "@clerk/nextjs";
 import moment from "moment";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Image from "next/image";
+import Link from "next/link";
 
 const Page = async ({
   params,
@@ -33,9 +34,12 @@ const Page = async ({
           <h1 className=" text-xl m-auto  font-bold text-white">{user.name}</h1>
           <span className="text-xs m-auto  text-white">@{user.username}</span>
           {id === userId && (
-            <button className=" px-3 py-2 rounded-md bg-black/40 text-orange-500">
+            <Link
+              href={`/profile/edit`}
+              className=" px-3 py-2 rounded-md bg-black/40 text-orange-500"
+            >
               Edit Profile
-            </button>
+            </Link>
           )}
           <div className=" flex gap-2 text-xs text-white mt-2">
             <span>Joined</span>
