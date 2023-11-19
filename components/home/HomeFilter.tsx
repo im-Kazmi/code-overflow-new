@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 "use client";
 import { filters } from "@/constants";
+import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -14,15 +16,29 @@ const HomeFilter = () => {
   }, [searchParams]);
 
   const handleFilterClick = (item: string) => {
-    if (item === searchParams.get("filter")?.toString()) return;
-    router.push(`${pathname}?filter=${item.toLowerCase()}`);
+    if (isActive === item) {
+      setIsActive("");
+      const newUrl = removeKeysFromQuery({
+        searchParams: searchParams.toString(),
+        keysToRemove: ["filter"],
+      });
+
+      router.push(newUrl);
+    } else {
+      const newUrl = formUrlQuery({
+        searchParams: searchParams.toString(),
+        key: "filter",
+        value: item,
+      });
+      router.push(newUrl);
+    }
   };
   return (
     <div className=" flex mt-5 w-full gap-5 max-sm:hidden">
       {filters.map((filter) => (
         <span
           key={filter.id}
-          onClick={() => handleFilterClick(filter.name)}
+          onClick={() => handleFilterClick(filter.value)}
           className={`w-fit px-3 py-1 rounded-lg text-neutral-500 cursor-pointer bg-black/40 ${
             filter.name.toLowerCase() === isActive && "text-orange-500"
           }`}

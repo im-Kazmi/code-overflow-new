@@ -12,8 +12,8 @@ const RightSidebar = async () => {
   const popularTags = await getPopularTags();
 
   return (
-    <div className="sticky flex max-xl:hidden flex-col w-64 min-h-screen  bg-black/20">
-      <div className="flex px-3 flex-col w-full mt-5">
+    <div className="  flex max-xl:hidden flex-col w-64 min-h-screen right-0  fixed bg-black/20">
+      <div className="flex  px-3 flex-col w-full mt-5">
         <div className="flex flex-col ">
           <h1 className=" font-bold text-white">Top Questions</h1>
           <div className=" flex flex-col gap-1 mt-5">

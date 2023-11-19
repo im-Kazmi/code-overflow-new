@@ -2,7 +2,7 @@
 "use server";
 
 import { User } from "lucide-react";
-import Question from "../database/question.model";
+import Question, { IQuestion } from "../database/question.model";
 // import Question from "../database/question.model";
 import Tag, { ITag } from "../database/tag.model";
 // import User from "../database/user.model";
@@ -80,7 +80,7 @@ export async function getAllTags(params: any) {
 export async function tag(params: any) {
   await connectToDatabase();
   try {
-    const { tagId, page = 1, pageSize = 1, searchQuery } = params;
+    const { tagId, page = 1, pageSize = 5, searchQuery } = params;
 
     const skipLimit = (page - 1) * pageSize;
 
@@ -89,7 +89,7 @@ export async function tag(params: any) {
     if (searchQuery) {
       query.title = { $regex: new RegExp(searchQuery, "i") };
     }
-    const questionByTag = await Tag.findOne({ _id: tagId })
+    const questionByTag: ITag = (await Tag.findOne({ _id: tagId })
       .populate({
         path: "questions",
         model: Question,
@@ -114,9 +114,13 @@ export async function tag(params: any) {
       })
       .populate("questions.author")
       .populate("questions.tags")
-      .lean();
+      .lean()) as ITag;
 
-    const isNext = questionByTag.questions.length > skipLimit;
+    const totalQuestionsByTag = await Question.countDocuments({
+      tags: { $elemMatch: { $eq: tagId } },
+    });
+    const isNext =
+      totalQuestionsByTag > questionByTag?.questions?.length + skipLimit;
     return { questionByTag, isNext };
   } catch (error: any) {
     console.log(error.message);

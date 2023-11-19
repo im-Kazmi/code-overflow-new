@@ -31,7 +31,6 @@ export const formUrlQuery = ({ searchParams, key, value }: URLQueryParmas) => {
   return newUrl;
 };
 
-
 export const removeKeysFromQuery = ({
   searchParams,
   keysToRemove,
@@ -50,4 +49,10 @@ export const removeKeysFromQuery = ({
   );
 
   return newUrl;
+};
+
+export const handleClickOutside = ({ e, ref, setState }: any) => {
+  if (!ref.current.includes(e.target)) {
+    setState(false);
+  }
 };

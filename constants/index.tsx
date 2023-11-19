@@ -76,6 +76,13 @@ export const filters = [
   { id: "4", name: "UnAnswered", value: "unanswered" },
 ];
 
+export const GlobalSearchFilters = [
+  { id: "1", name: "Questions", value: "questions" },
+  { id: "2", name: "User", value: "user" },
+  { id: "3", name: "Answer", value: "answer" },
+  { id: "4", name: "Tag", value: "tag" },
+];
+
 export const tagFilters = [
   { id: "1", name: "Popular", value: "popular" },
   { id: "2", name: "Recent", value: "Recent" },

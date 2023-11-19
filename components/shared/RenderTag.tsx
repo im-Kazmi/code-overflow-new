@@ -18,7 +18,7 @@ const RenderTag = ({
   return (
     <Link href={`/tag/${_id}`} className=" flex justify-between cursor-pointer">
       <p
-        className={` w-fit px-2 py-2 ${className} text-white  bg-black/40 rounded-xl `}
+        className={` w-fit px-2 py-2  text-white  bg-black/40 rounded-xl  ${className}`}
       >
         {name}
       </p>

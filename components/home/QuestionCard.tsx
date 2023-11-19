@@ -44,7 +44,7 @@ const QuestionCard = ({
   const { userId } = auth();
   const showActionButtons = userId && userId === author?.clerkId;
   return (
-    <div className=" cursor-pointer w-full p-5 text-white bg-black/40 rounded-lg flex flex-col">
+    <div className=" cursor-pointer w-full px-3 py-2 text-white bg-black/40 rounded-lg flex flex-col">
       <div className=" w-full flex-col">
         <div className=" flex justify-between">
           <Link

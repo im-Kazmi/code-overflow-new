@@ -54,7 +54,7 @@ export async function createQuestion(params: createQuestionParams) {
 export async function getQuestions(params: any) {
   await connectToDatabase();
   try {
-    const { searchQuery, filters, page = 1, pageSize = 2 } = params;
+    const { searchQuery, filters, page = 1, pageSize = 10 } = params;
 
     const skipLimit = (page - 1) * pageSize;
     const query: FilterQuery<typeof Question> = {};
