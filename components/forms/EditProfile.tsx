@@ -52,10 +52,8 @@ const EditProfile = ({ user, clerkId }: { user: any; clerkId: any }) => {
         },
         path: pathname,
       });
-      if (isSubmitted) {
-        toast.success("profile updated");
-        router.push(`/profile/${clerkId}`);
-      }
+      toast.success("profile updated");
+      router.push(`/profile/${clerkId}`);
     } catch (error) {
       console.log(error);
     }
