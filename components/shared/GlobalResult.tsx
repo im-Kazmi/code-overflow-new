@@ -58,11 +58,6 @@ const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
         ? `/tag/${id}`
         : "";
 
-    const newLink = removeKeysFromQuery({
-      keysToRemove: ["type", "global"],
-      searchParams: searchParams.toString(),
-    });
-    router.push(newLink, { scroll: false });
     return link;
   };
   return (
