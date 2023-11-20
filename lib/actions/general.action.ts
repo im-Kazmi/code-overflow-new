@@ -6,7 +6,6 @@ import Question from "../database/question.model";
 import Tag from "../database/tag.model";
 import User from "../database/user.model";
 import { connectToDatabase } from "../mongoose";
-import { any } from "zod";
 
 interface IglobalSearchParams {
   query: string;
@@ -36,7 +35,7 @@ export async function globalSearch(params: IglobalSearchParams) {
       for (const { model, searchField, type } of modelAndTypes) {
         const queryResults = await model
           .find({ [searchField]: regexQuery })
-          .limit(8);
+          .limit(5);
 
         results.push(
           ...queryResults.map((item) => ({
@@ -65,7 +64,7 @@ export async function globalSearch(params: IglobalSearchParams) {
         .find({
           [modelInfo?.searchField]: regexQuery,
         })
-        .limit(8);
+        .limit(5);
 
       results = queryResults.map((item) => ({
         title:
@@ -81,7 +80,6 @@ export async function globalSearch(params: IglobalSearchParams) {
       }));
     }
 
-    console.log("backend results = ", results);
     return JSON.stringify(results);
   } catch (error) {
     console.log(error);

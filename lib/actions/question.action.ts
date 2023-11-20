@@ -4,7 +4,7 @@
 import { revalidatePath } from "next/cache";
 import Question, { IQuestion } from "../database/question.model";
 import Tag from "../database/tag.model";
-import User from "../database/user.model";
+import User, { IUser } from "../database/user.model";
 
 import { connectToDatabase } from "../mongoose";
 import {
@@ -42,6 +42,9 @@ export async function createQuestion(params: createQuestionParams) {
 
     await Question.findByIdAndUpdate(question._id, {
       $push: { tags: { $each: tagDocuments } },
+    });
+    await User.findByIdAndUpdate(author, {
+      $inc: { reputation: 2 },
     });
 
     revalidatePath("/");
@@ -126,19 +129,28 @@ export async function upVoteQuestion(params: any) {
     const { questionId, userId, hasUpvoted, hasDownVoted } = params;
 
     let updateQuery = {};
-
     if (hasUpvoted) {
       updateQuery = { $pull: { upvotes: userId } };
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: -5 },
+      });
     } else if (hasDownVoted) {
       updateQuery = {
         $pull: { downVotes: userId },
         $push: { upvotes: userId },
       };
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: 5 },
+      });
     } else {
       updateQuery = {
         $addToSet: { upvotes: userId },
       };
+      await User.findByIdAndUpdate(userId, {
+        $inc: { reputation: 5 },
+      });
     }
+
     const question = await Question.findByIdAndUpdate(questionId, updateQuery, {
       new: true,
     });

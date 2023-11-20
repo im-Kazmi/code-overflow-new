@@ -52,7 +52,7 @@ export const removeKeysFromQuery = ({
 };
 
 export const handleClickOutside = ({ e, ref, setState }: any) => {
-  if (!ref.current.includes(e.target)) {
+  if (ref.current && !ref.current.contains(e.target)) {
     setState(false);
   }
 };

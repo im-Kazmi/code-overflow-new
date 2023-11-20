@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 "use client";
-import { handleClickOutside } from "@/lib/utils";
-import { useSearchParams } from "next/navigation";
+import { handleClickOutside, removeKeysFromQuery } from "@/lib/utils";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { TbLoader } from "react-icons/tb";
 import Link from "next/link";
@@ -21,6 +21,9 @@ const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
   const searchParams = useSearchParams();
   const global = searchParams.get("global")?.toString() as string;
   const type = searchParams.get("type")?.toString() as string;
+  const router = useRouter();
+
+  console.log("global = ", global);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -46,10 +49,27 @@ const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
   }, [type, global]);
 
   const renderLink = (type: string, id: string) => {
-    return type;
+    const link =
+      type === "questions"
+        ? `/question/${id}`
+        : type === "user"
+        ? `/profile/${id}`
+        : type === "tag"
+        ? `/tag/${id}`
+        : "";
+
+    const newLink = removeKeysFromQuery({
+      keysToRemove: ["type", "global"],
+      searchParams: searchParams.toString(),
+    });
+    router.push(newLink, { scroll: false });
+    return link;
   };
   return (
-    <div className=" absolute z-10 top-8 w-[600px]  bg-black rounded-lg mt-10 p-3 text-white ">
+    <div
+      ref={globalResultsRef}
+      className=" absolute z-10 top-8 w-[600px] bg-neutral-900 ring-2 ring-neutral-700 rounded-lg mt-10 p-3 text-white "
+    >
       <GlobalFilters />
       <hr className=" border-neutral-600 p-3 w-full mt-2" />
       <h1 className=" font-bold px-3 ">Top Match</h1>
@@ -67,7 +87,7 @@ const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
             return (
               <Link
                 key={item.id}
-                href={renderLink("", "")}
+                href={renderLink(item.type as string, item.id as string)}
                 className=" flex gap-3 py-3 px-3 hover:bg-white/10 rounded-md"
               >
                 <span className=" my-auto">
@@ -80,10 +100,16 @@ const GlobalResult = ({ isOpen, setIsOpen, globalResultsRef }: any) => {
               </Link>
             );
           })
-        ) : (
+        ) : global && isLoading === false ? (
           <div className=" w-full flex justify-center">
             <span className=" text-xl font-bold text-orange-500">
               Oops nothing found
+            </span>
+          </div>
+        ) : (
+          <div className=" w-full flex justify-center">
+            <span className=" text-xl font-bold text-orange-500">
+              Searching...
             </span>
           </div>
         )}

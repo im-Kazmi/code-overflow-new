@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import GlobalResult from "./GlobalResult";
+
 const Search = ({ placeholder }: { placeholder: string }) => {
   const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,16 @@ const Search = ({ placeholder }: { placeholder: string }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const query = searchParams.get("global");
+
+  useEffect(() => {
+    if (!query) {
+      const newURl = removeKeysFromQuery({
+        searchParams: searchParams.toString(),
+        keysToRemove: ["global", "type"],
+      });
+      router.push(newURl, { scroll: false });
+    }
+  }, [query, searchParams, router]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -35,8 +46,10 @@ const Search = ({ placeholder }: { placeholder: string }) => {
   }, [search, router, pathname, searchParams, query]);
 
   return (
-    <div className=" flex flex-col max-w-[600px]">
-      <div className={` h-12 w-[600px] bg-black/40 flex gap-1 rounded-lg `}>
+    <div className=" flex flex-col">
+      <div
+        className={` h-12 max-md:hidden w-[600px] bg-neutral-900 flex gap-1 rounded-lg `}
+      >
         <span className=" my-auto px-3 text-white">
           <FiSearch />
         </span>

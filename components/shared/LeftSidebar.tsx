@@ -11,7 +11,7 @@ const LeftSidebar = () => {
 
   return (
     <div className=" ">
-      <div className="fixed max-md:hidden  flex flex-col justify-around w-60  max-lg:w-fit max-h-screen bg-black/20">
+      <div className="fixed max-md:hidden  flex flex-col justify-between w-60  max-lg:w-fit max-h-screen min-h-screen bg-black/20 max-lg:bg-transparent">
         <div className="flex flex-col h-full  gap-4 px-5 mt-10  w-fit ">
           {links.map((link) => {
             if (link.route === "/profile") {
@@ -38,22 +38,22 @@ const LeftSidebar = () => {
             );
           })}
         </div>
-        {/* <div className=" flex flex-col px-5 gap-2 py-2">
+        <div className=" flex flex-col px-5 gap-2 py-2">
           <Link
             href={"/sign-in"}
             className="flex p-2 cursor-pointer  max-md:w-fit bg-black/40 w-44  rounded-md
            gap-5  items-center text-white "
           >
-            Sign In
+            <span className=" max-lg:hidden ">Sign In</span>
           </Link>
           <Link
             href={"/sign-up"}
             className="flex p-2 cursor-pointer  max-md:w-fit bg-black/40 w-44 rounded-md
            gap-5  items-center text-white "
           >
-            Sign Up
+            <span className=" max-lg:hidden ">Sign Up</span>
           </Link>
-        </div> */}
+        </div>
       </div>
     </div>
   );
